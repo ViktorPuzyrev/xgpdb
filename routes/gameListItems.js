@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const GameListItem = require("../models/GameListItem");
+const GameListItem = require("../models/gameListItem");
 
 const router = Router();
 
