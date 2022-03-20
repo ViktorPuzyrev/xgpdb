@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col sm="4" md="3" lg="2" xl="2" class="pr-0"
+      <v-col sm="4" md="3" lg="2" class="pr-0"
         ><TheFilter
           @clearSearch="filteredGames = JSON.parse(JSON.stringify(games))"
           @searchInDescription="searchInDescription = $event"
@@ -14,7 +14,7 @@
       <v-col>
         <v-row>
           <v-spacer></v-spacer>
-          <v-col md="4" lg="2" xl="3" class="d-flex pb-0">
+          <v-col md="4" lg="2" class="d-flex pb-0">
             <v-select
               v-model="sortingBy"
               :items="sortItems"
