@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const { PORT, mongoUri } = require('./config')
 const cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
@@ -14,7 +13,7 @@ app.use(morgan("tiny"));
 app.use(bodyParser.json());
 
 mongoose
-  .connect(mongoUri, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -30,6 +29,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT}`)
+app.listen(process.env.PORT, () =>
+  console.log(`App listening at http://localhost:${process.env.PORT}`)
 );
