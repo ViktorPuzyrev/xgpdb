@@ -13,8 +13,11 @@
       </v-col>
       <v-col>
         <v-row>
+          <v-col class="pt-7 pb-4" >
+            <span>Игр в списке: {{ filteredGames.length }}</span>
+          </v-col>
           <v-spacer></v-spacer>
-          <v-col md="4" lg="2" class="d-flex pb-0">
+          <v-col md="4" lg="3" class="d-flex pb-0">
             <v-select
               v-model="sortingBy"
               :items="sortItems"
@@ -55,7 +58,7 @@
           :length="pages"
           :total-visible="7"
           color="green darken-3"
-          class="my-2"
+          class="mt-2"
         ></v-pagination>
       </v-col>
     </v-row>
@@ -83,6 +86,9 @@ export default {
         { text: "Дата", value: "date" },
         { text: "Название", value: "title" },
         { text: "MS рейтинг", value: "MSrating" },
+        { text: "OC рейтинг", value: "OCrating" },
+        { text: "MC(MS) рейтинг", value: "MCMSrating" },
+        { text: "MC(US) рейтинг", value: "MCUSrating" },
       ],
       gamesPerPage: 20,
       gamesPerPageSelect: [20, 50, 100],
@@ -174,6 +180,15 @@ export default {
           break;
         case "MSrating":
           sortedGames(filteredGamesList, "num", "MSrating");
+          break;
+        case "OCrating":
+          sortedGames(filteredGamesList, "num", "topOCAverage");
+          break;
+        case "MCMSrating":
+          sortedGames(filteredGamesList, "num", "MCRating");
+          break;
+        case "MCUSrating":
+          sortedGames(filteredGamesList, "num", "MCUserScore");
           break;
         default:
           break;

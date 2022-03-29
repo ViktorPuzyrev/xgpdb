@@ -109,12 +109,25 @@ export default {
           case "audio":
             allLocalizations.push("АУДИО");
             break;
-
           default:
             break;
         }
       }
       return allLocalizations.join(", ");
+    },
+    OCSticker() {
+      switch (this.game.OCRating) {
+        case "Mighty Man":
+          return require("@/assets/mighty-man.avif");
+        case "Strong Man":
+          return require("@/assets/strong-man.avif");
+        case "Fair Man":
+          return require("@/assets/fair-man.avif");
+        case "Weak Man":
+          return require("@/assets/weak-man.avif");
+        default:
+          return false;
+      }
     },
   },
 };
