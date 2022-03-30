@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="game">
     <v-card>
       <v-card-title class="pa-2">{{ game.ruTitle }}</v-card-title>
       <v-divider></v-divider>
@@ -75,6 +75,11 @@ export default {
   computed: {
     gameId() {
       return this.$route.params.id;
+    },
+  },
+  watch: {
+    game() {
+      document.title = this.game.ruTitle + " - XGPdb";
     },
   },
   methods: {

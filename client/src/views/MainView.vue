@@ -13,8 +13,8 @@
       </v-col>
       <v-col>
         <v-row>
-          <v-col class="pt-7 pb-4" >
-            <span>Игр в списке: {{ filteredGames.length }}</span>
+          <v-col class="pt-7 pb-4">
+            <span>Игр в списке: {{ counterOfGames }}</span>
           </v-col>
           <v-spacer></v-spacer>
           <v-col md="4" lg="3" class="d-flex pb-0">
@@ -96,107 +96,115 @@ export default {
     };
   },
   computed: {
-    filteredGames() {
-      function filtrGame(arr, obj, key) {
-        const filtredArr = arr.filter((item) => {
-          switch (obj) {
-            case "genres":
-              return item.genres.includes(key);
-            case "features":
-              return item.featuresList.includes(key);
-            case "localization":
-              return item.ruLocalization.includes(key);
-          }
-        });
-        return filtredArr;
-      }
-      let filteredGamesList = JSON.parse(JSON.stringify(this.games));
-      if (this.genres.length !== 0) {
-        for (const key of this.genres) {
-          filteredGamesList = filtrGame(filteredGamesList, "genres", key);
+    filteredGames: {
+      get: function () {
+        function filtrGame(arr, obj, key) {
+          const filtredArr = arr.filter((item) => {
+            switch (obj) {
+              case "genres":
+                return item.genres.includes(key);
+              case "features":
+                return item.featuresList.includes(key);
+              case "localization":
+                return item.ruLocalization.includes(key);
+            }
+          });
+          return filtredArr;
         }
-      }
-      if (this.features.length !== 0) {
-        for (const key of this.features) {
-          filteredGamesList = filtrGame(filteredGamesList, "features", key);
-        }
-      }
-      if (this.localization.length !== 0) {
-        for (const key of this.localization) {
-          filteredGamesList = filtrGame(filteredGamesList, "localization", key);
-        }
-      }
-      function searchInString(arr, searchIn, str) {
-        const searchArr = arr.filter((item) => {
-          switch (searchIn) {
-            case false:
-              if (
-                item.ruTitle.toLowerCase().indexOf(str.toLowerCase()) !== -1
-              ) {
-                return true;
-              }
-              break;
-            case true:
-              if (
-                item.description.toLowerCase().indexOf(str.toLowerCase()) !== -1
-              ) {
-                return true;
-              }
-              break;
-            default:
-              break;
+        let filteredGamesList = JSON.parse(JSON.stringify(this.games));
+        if (this.genres.length !== 0) {
+          for (const key of this.genres) {
+            filteredGamesList = filtrGame(filteredGamesList, "genres", key);
           }
-        });
-        return searchArr;
-      }
-      if (this.gameTitle) {
-        filteredGamesList = searchInString(
-          filteredGamesList,
-          this.searchInDescription,
-          this.gameTitle
-        );
-      }
-      function sortedGames(arr, sortType, key) {
-        arr.sort(function (a, b) {
-          switch (sortType) {
-            case "str":
-              if (a[key].toLowerCase() > b[key].toLowerCase()) {
-                return 1;
-              }
-              if (a[key].toLowerCase() < b[key].toLowerCase()) {
-                return -1;
-              }
-              return 0;
-            case "num":
-              return b[key] - a[key];
-            default:
-              break;
+        }
+        if (this.features.length !== 0) {
+          for (const key of this.features) {
+            filteredGamesList = filtrGame(filteredGamesList, "features", key);
           }
-        });
-      }
-      switch (this.sortingBy) {
-        case "title":
-          sortedGames(filteredGamesList, "str", "ruTitle");
-          break;
-        case "MSrating":
-          sortedGames(filteredGamesList, "num", "MSrating");
-          break;
-        case "OCrating":
-          sortedGames(filteredGamesList, "num", "topOCAverage");
-          break;
-        case "MCMSrating":
-          sortedGames(filteredGamesList, "num", "MCRating");
-          break;
-        case "MCUSrating":
-          sortedGames(filteredGamesList, "num", "MCUserScore");
-          break;
-        default:
-          break;
-      }
-      if (this.reverseSort) {
-        filteredGamesList = filteredGamesList.reverse();
-      }
-      return filteredGamesList;
+        }
+        if (this.localization.length !== 0) {
+          for (const key of this.localization) {
+            filteredGamesList = filtrGame(
+              filteredGamesList,
+              "localization",
+              key
+            );
+          }
+        }
+        function searchInString(arr, searchIn, str) {
+          const searchArr = arr.filter((item) => {
+            switch (searchIn) {
+              case false:
+                if (
+                  item.ruTitle.toLowerCase().indexOf(str.toLowerCase()) !== -1
+                ) {
+                  return true;
+                }
+                break;
+              case true:
+                if (
+                  item.description.toLowerCase().indexOf(str.toLowerCase()) !==
+                  -1
+                ) {
+                  return true;
+                }
+                break;
+              default:
+                break;
+            }
+          });
+          return searchArr;
+        }
+        if (this.gameTitle) {
+          filteredGamesList = searchInString(
+            filteredGamesList,
+            this.searchInDescription,
+            this.gameTitle
+          );
+        }
+        function sortedGames(arr, sortType, key) {
+          arr.sort(function (a, b) {
+            switch (sortType) {
+              case "str":
+                if (a[key].toLowerCase() > b[key].toLowerCase()) {
+                  return 1;
+                }
+                if (a[key].toLowerCase() < b[key].toLowerCase()) {
+                  return -1;
+                }
+                return 0;
+              case "num":
+                return b[key] - a[key];
+              default:
+                break;
+            }
+          });
+        }
+        switch (this.sortingBy) {
+          case "title":
+            sortedGames(filteredGamesList, "str", "ruTitle");
+            break;
+          case "MSrating":
+            sortedGames(filteredGamesList, "num", "MSrating");
+            break;
+          case "OCrating":
+            sortedGames(filteredGamesList, "num", "topOCAverage");
+            break;
+          case "MCMSrating":
+            sortedGames(filteredGamesList, "num", "MCRating");
+            break;
+          case "MCUSrating":
+            sortedGames(filteredGamesList, "num", "MCUserScore");
+            break;
+          default:
+            break;
+        }
+        if (this.reverseSort) {
+          filteredGamesList = filteredGamesList.reverse();
+        }
+        return filteredGamesList;
+      },
+      set: function () {},
     },
     paginatedGames() {
       function chunk(arr, size) {
@@ -206,10 +214,21 @@ export default {
         }
         return result;
       }
-      return chunk(this.filteredGames, this.gamesPerPage);
+      if (this.filteredGames !== null) {
+        return chunk(this.filteredGames, this.gamesPerPage);
+      } else {
+        return 0;
+      }
     },
     pages() {
       return this.paginatedGames.length;
+    },
+    counterOfGames() {
+      if (this.filteredGames !== null) {
+        return this.filteredGames.length;
+      } else {
+        return 0;
+      }
     },
   },
   watch: {

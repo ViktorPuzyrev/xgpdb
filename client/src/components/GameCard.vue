@@ -85,7 +85,10 @@
         <v-col
           ><v-btn block
             ><router-link
-              :to="{ name: 'Game', params: { id: game.id } }"
+              :to="{
+                name: 'Game',
+                params: { id: game.id, title: '123' },
+              }"
               class="text-decoration-none green--text text--darken-3"
               >Подробнее</router-link
             >

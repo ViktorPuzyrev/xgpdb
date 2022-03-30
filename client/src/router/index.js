@@ -15,7 +15,6 @@ const routes = [
     path: "/:id(\\w{12})",
     name: "Game",
     component: () => import(/* webpackChunkName: "Game" */ "../views/GameView"),
-    meta: { title: "Страница игры - XGPdb" },
   },
   {
     path: "*",
