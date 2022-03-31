@@ -171,14 +171,18 @@
         <v-btn block class="mt-2 white--text" color="red" @click="clearAll"
           >Очистить</v-btn
         >
+        <AllStatistics />
       </v-form>
     </v-sheet>
   </v-navigation-drawer>
 </template>
 
 <script>
+import AllStatistics from "./AllStatistics.vue";
+
 export default {
   name: "TheFilter",
+  components: { AllStatistics },
   data() {
     return {
       gameTitle: null,

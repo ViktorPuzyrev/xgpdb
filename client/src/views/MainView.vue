@@ -14,8 +14,8 @@
       <v-col>
         <v-row>
           <v-col class="pt-7 pb-4">
-            <span>Игр в списке: {{ counterOfGames }}</span>
-          </v-col>
+            <span>Игр в списке: {{ counterOfGames }}</span></v-col
+          >
           <v-spacer></v-spacer>
           <v-col md="4" lg="3" class="d-flex pb-0">
             <v-select
@@ -94,6 +94,9 @@ export default {
       gamesPerPageSelect: [20, 50, 100],
       page: 1,
     };
+  },
+  provide() {
+    return { getGames: () => this.games };
   },
   computed: {
     filteredGames: {
