@@ -94,26 +94,34 @@ export default {
             break;
         }
       }
-      return allFeatures.join(", ");
+      if (allFeatures.length > 0) {
+        return allFeatures.join(", ");
+      } else {
+        return "отсутствуют данные";
+      }
     },
     localization() {
       let allLocalizations = [];
       for (const item of this.game.ruLocalization) {
         switch (item) {
           case "interface":
-            allLocalizations.push("ИНТЕРФЕЙС");
+            allLocalizations.push("Интерфейс");
             break;
           case "subtitles":
-            allLocalizations.push("СУБТИТРЫ");
+            allLocalizations.push("Субтитры");
             break;
           case "audio":
-            allLocalizations.push("АУДИО");
+            allLocalizations.push("Аудио");
             break;
           default:
             break;
         }
       }
-      return allLocalizations.join(", ");
+      if (allLocalizations.length > 0) {
+        return allLocalizations.join(", ");
+      } else {
+        return "отсутствуют данные";
+      }
     },
     OCSticker() {
       switch (this.game.OCRating) {
@@ -128,6 +136,35 @@ export default {
         default:
           return false;
       }
+    },
+    achievements() {
+      if (this.game.strategeHard === null || this.game.strategeTime === null) {
+        return "отсутствуют данные";
+      } else {
+        return `сложность ${this.game.strategeHard} из 10, время ${this.game.strategeTime} часов`;
+      }
+    },
+    HLTB() {
+      let allTime = [];
+      if (this.game.HLTBMainStory) {
+        allTime.push(`сюжет ${this.game.HLTBMainStory} ч.`);
+      }
+      if (this.game.HLTBMainExtras) {
+        allTime.push(`сюжет+экстра ${this.game.HLTBMainExtras} ч.`);
+      }
+      if (this.game.HLTBCompletionist) {
+        allTime.push(`перфекционист ${this.game.HLTBCompletionist} ч.`);
+      }
+      if (this.game.HLTBSinglePlayer) {
+        allTime.push(`соло ${this.game.HLTBSinglePlayer} ч.`);
+      }
+      if (this.game.HLTBCoOp) {
+        allTime.push(`кооп ${this.game.HLTBCoOp} ч.`);
+      }
+      if (this.game.HLTBVs) {
+        allTime.push(`версус ${this.game.HLTBVs} ч.`);
+      }
+      return allTime.join(", ");
     },
   },
 };

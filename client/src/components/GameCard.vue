@@ -10,7 +10,7 @@
           <p v-if="game.MSrating" class="white--text text-center text-h5 ma-0">
             {{ game.MSrating }}
           </p>
-          <p v-else class="white--text text-center text-h5 ma-0">N/A</p> </v-col
+          <p v-else class="white--text text-center text-h5 ma-0">==</p> </v-col
         ><v-col
           ><div
             class="ma-auto"
@@ -28,7 +28,7 @@
             >
               {{ game.MCRating }}
             </p>
-            <p v-else class="white--text text-center text-h5 ma-0">N/A</p>
+            <p v-else class="white--text text-center text-h5 ma-0">==</p>
           </div></v-col
         ><v-col>
           <div
@@ -47,11 +47,11 @@
             >
               {{ game.MCUserScore }}
             </p>
-            <p v-else class="white--text text-center text-h5 ma-0">N/A</p>
+            <p v-else class="white--text text-center text-h5 ma-0">==</p>
           </div> </v-col
         ><v-col>
           <v-img v-if="OCSticker" :src="OCSticker" style="width: 45px"></v-img>
-          <p v-else class="white--text text-center text-h5 ma-0">N/A</p> </v-col
+          <p v-else class="white--text text-center text-h5 ma-0">==</p> </v-col
         ><v-col>
           <v-img
             v-if="game.MCMustPlay"
