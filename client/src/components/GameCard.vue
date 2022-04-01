@@ -1,7 +1,26 @@
 <template>
   <v-card class="ma-3 mt-0 d-flex flex-column" width="250">
     <v-img :src="game.cover" width="100%">
-      <v-row no-gutters style="height: 325px"></v-row>
+      <v-hover>
+        <template v-slot:default="{ hover }">
+          <v-row no-gutters style="height: 325px">
+            <v-fade-transition>
+              <v-overlay v-if="hover" absolute>
+                <v-btn color="green darken-3"
+                  ><router-link
+                    :to="{
+                      name: 'Game',
+                      params: { id: game.id },
+                    }"
+                    class="text-decoration-none white--text"
+                    >Подробнее</router-link
+                  >
+                </v-btn>
+              </v-overlay>
+            </v-fade-transition>
+          </v-row>
+        </template>
+      </v-hover>
       <v-row
         no-gutters
         align="center"
@@ -129,7 +148,7 @@
     >
     <v-card-actions class="pt-0">
       <v-row class="d-flex justify-space-between">
-        <v-col class="pb-0"
+        <v-col
           ><v-btn block color="green darken-3"
             ><a
               :href="game.link"
@@ -139,18 +158,6 @@
             >
           </v-btn>
         </v-col>
-        <v-col
-          ><v-btn block
-            ><router-link
-              :to="{
-                name: 'Game',
-                params: { id: game.id, title: '123' },
-              }"
-              class="text-decoration-none green--text text--darken-3"
-              >Подробнее</router-link
-            >
-          </v-btn></v-col
-        >
       </v-row>
     </v-card-actions>
   </v-card>
