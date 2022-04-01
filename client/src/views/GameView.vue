@@ -40,13 +40,7 @@
                       v-bind="attrs"
                       v-on="on"
                       class="ma-auto"
-                      style="
-                        width: 55px;
-                        height: 55px;
-                        background-color: #6c3;
-                        border-radius: 7px;
-                        padding-top: 8px;
-                      "
+                      :style="styleMCRating"
                     >
                       <p
                         v-if="game.MCRating"
@@ -68,13 +62,7 @@
                       v-bind="attrs"
                       v-on="on"
                       class="ma-auto"
-                      style="
-                        width: 55px;
-                        height: 55px;
-                        background-color: #6c3;
-                        border-radius: 50%;
-                        padding-top: 8px;
-                      "
+                      :style="styleMCUserScore"
                     >
                       <p
                         v-if="game.MCUserScore"
@@ -183,6 +171,12 @@ export default {
     gameId() {
       return this.$route.params.id;
     },
+    styleMCRating() {
+      return this.metacriticStyle(this.game.MCRating, "7px", 75, 74, 50);
+    },
+    styleMCUserScore() {
+      return this.metacriticStyle(this.game.MCUserScore, "50%", 7.5, 7.4, 5.0);
+    },
   },
   watch: {
     game() {
@@ -193,6 +187,23 @@ export default {
     async initData() {
       const response = await fetch("api/xgpdb/game/" + this.gameId);
       this.game = await response.json();
+    },
+    metacriticStyle(key, radius, a, b, c) {
+      const style = {
+        width: "55px",
+        height: "55px",
+        backgroundColor: "",
+        borderRadius: radius,
+        paddingTop: "8px",
+      };
+      if (key >= a) {
+        style.backgroundColor = "#6c3";
+      } else if (c > key && key <= b) {
+        style.backgroundColor = "#f00";
+      } else {
+        style.backgroundColor = "#fc3";
+      }
+      return style;
     },
   },
   async created() {
