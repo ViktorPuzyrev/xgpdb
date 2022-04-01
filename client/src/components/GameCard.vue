@@ -7,58 +7,115 @@
         align="center"
         style="height: 50px; background-color: #2e7d32"
         ><v-col>
-          <p v-if="game.MSrating" class="white--text text-center text-h5 ma-0">
-            {{ game.MSrating }}
-          </p>
-          <p v-else class="white--text text-center text-h5 ma-0">==</p> </v-col
+          <v-tooltip top color="black">
+            <template v-slot:activator="{ on, attrs }">
+              <p
+                v-if="game.MSrating"
+                class="white--text text-center text-h5 ma-0"
+                v-bind="attrs"
+                v-on="on"
+              >
+                {{ game.MSrating }}
+              </p>
+              <p
+                v-bind="attrs"
+                v-on="on"
+                v-else
+                class="white--text text-center text-h5 ma-0"
+              >
+                ==
+              </p>
+            </template>
+            <span>Microsoft Store</span>
+          </v-tooltip> </v-col
+        ><v-col>
+          <v-tooltip top color="black">
+            <template v-slot:activator="{ on, attrs }">
+              <div
+                v-bind="attrs"
+                v-on="on"
+                class="ma-auto"
+                style="
+                  width: 45px;
+                  height: 45px;
+                  background-color: #6c3;
+                  border-radius: 5px;
+                  padding-top: 7px;
+                "
+              >
+                <p
+                  v-if="game.MCRating"
+                  class="white--text text-center text-h5 ma-0"
+                >
+                  {{ game.MCRating }}
+                </p>
+                <p v-else class="white--text text-center text-h5 ma-0">==</p>
+              </div></template
+            >
+            <span>Metacritic Metascore</span>
+          </v-tooltip></v-col
+        ><v-col>
+          <v-tooltip top color="black">
+            <template v-slot:activator="{ on, attrs }">
+              <div
+                v-bind="attrs"
+                v-on="on"
+                class="ma-auto"
+                style="
+                  width: 45px;
+                  height: 45px;
+                  background-color: #6c3;
+                  border-radius: 50%;
+                  padding-top: 7px;
+                "
+              >
+                <p
+                  v-if="game.MCUserScore"
+                  class="white--text text-center text-h5 ma-0"
+                >
+                  {{ game.MCUserScore }}
+                </p>
+                <p v-else class="white--text text-center text-h5 ma-0">==</p>
+              </div></template
+            >
+            <span>Metacritic Userscore</span>
+          </v-tooltip> </v-col
         ><v-col
-          ><div
-            class="ma-auto"
-            style="
-              width: 45px;
-              height: 45px;
-              background-color: #6c3;
-              border-radius: 5px;
-              padding-top: 7px;
-            "
-          >
-            <p
-              v-if="game.MCRating"
-              class="white--text text-center text-h5 ma-0"
-            >
-              {{ game.MCRating }}
-            </p>
-            <p v-else class="white--text text-center text-h5 ma-0">==</p>
-          </div></v-col
-        ><v-col>
-          <div
-            class="ma-auto"
-            style="
-              width: 45px;
-              height: 45px;
-              background-color: #6c3;
-              border-radius: 50%;
-              padding-top: 7px;
-            "
-          >
-            <p
-              v-if="game.MCUserScore"
-              class="white--text text-center text-h5 ma-0"
-            >
-              {{ game.MCUserScore }}
-            </p>
-            <p v-else class="white--text text-center text-h5 ma-0">==</p>
-          </div> </v-col
-        ><v-col>
-          <v-img v-if="OCSticker" :src="OCSticker" style="width: 45px"></v-img>
-          <p v-else class="white--text text-center text-h5 ma-0">==</p> </v-col
-        ><v-col>
-          <v-img
-            v-if="game.MCMustPlay"
-            src="@/assets/mc-mustplay.svg"
-            style="width: 45px"
-          ></v-img> </v-col
-      ></v-row> </v-img
+          ><v-tooltip top color="black">
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                v-bind="attrs"
+                v-on="on"
+                v-if="OCSticker"
+                :src="OCSticker"
+                style="width: 45px"
+              ></v-img>
+              <p
+                v-bind="attrs"
+                v-on="on"
+                v-else
+                class="white--text text-center text-h5 ma-0"
+              >
+                ==
+              </p>
+            </template>
+            <span>Opencritic</span>
+          </v-tooltip></v-col
+        ><v-col
+          ><v-tooltip top color="black">
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                v-bind="attrs"
+                v-on="on"
+                v-if="game.MCMustPlay"
+                src="@/assets/mc-mustplay.svg"
+                style="width: 45px"
+              ></v-img
+            ></template>
+            <span>Metacritic Must Play</span>
+          </v-tooltip>
+        </v-col></v-row
+      > </v-img
     ><v-divider></v-divider
     ><v-card-title
       class="d-inline-block pa-2 text-truncate"
