@@ -54,13 +54,7 @@
                 v-bind="attrs"
                 v-on="on"
                 class="ma-auto"
-                style="
-                  width: 45px;
-                  height: 45px;
-                  background-color: #6c3;
-                  border-radius: 5px;
-                  padding-top: 7px;
-                "
+                :style="styleMCRating"
               >
                 <p
                   v-if="game.MCRating"
@@ -80,13 +74,7 @@
                 v-bind="attrs"
                 v-on="on"
                 class="ma-auto"
-                style="
-                  width: 45px;
-                  height: 45px;
-                  background-color: #6c3;
-                  border-radius: 50%;
-                  padding-top: 7px;
-                "
+                :style="styleMCUserScore"
               >
                 <p
                   v-if="game.MCUserScore"
@@ -170,5 +158,32 @@ export default {
   name: "GameCard",
   mixins: [gameDataHandler],
   props: ["game"],
+  computed: {
+    styleMCRating() {
+      return this.metacriticStyle(this.game.MCRating, "5px", 75, 74, 50);
+    },
+    styleMCUserScore() {
+      return this.metacriticStyle(this.game.MCUserScore, "50%", 7.5, 7.4, 5.0);
+    },
+  },
+  methods: {
+    metacriticStyle(key, radius, a, b, c) {
+      const style = {
+        width: "45px",
+        height: "45px",
+        backgroundColor: "",
+        borderRadius: radius,
+        paddingTop: "7px",
+      };
+      if (key >= a) {
+        style.backgroundColor = "#6c3";
+      } else if (c > key && key <= b) {
+        style.backgroundColor = "#f00";
+      } else {
+        style.backgroundColor = "#fc3";
+      }
+      return style;
+    },
+  },
 };
 </script>
