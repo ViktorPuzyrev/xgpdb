@@ -149,8 +149,8 @@
         show-arrows-on-hover
         height="100%"
       >
-        <v-carousel-item v-for="(slide, i) in game.screens" :key="i">
-          <v-img :src="slide" contain></v-img>
+        <v-carousel-item v-for="(slide, i) in game.screens" :key="i" eager>
+          <v-img :src="slide" contain eager></v-img>
         </v-carousel-item> </v-carousel
     ></v-card>
   </v-container>
