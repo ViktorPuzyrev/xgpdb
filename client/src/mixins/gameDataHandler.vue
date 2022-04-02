@@ -126,13 +126,13 @@ export default {
     OCSticker() {
       switch (this.game.OCRating) {
         case "Mighty Man":
-          return require("@/assets/mighty-man.avif");
+          return require("@/assets/mighty-man.png");
         case "Strong Man":
-          return require("@/assets/strong-man.avif");
+          return require("@/assets/strong-man.png");
         case "Fair Man":
-          return require("@/assets/fair-man.avif");
+          return require("@/assets/fair-man.png");
         case "Weak Man":
-          return require("@/assets/weak-man.avif");
+          return require("@/assets/weak-man.png");
         default:
           return false;
       }
