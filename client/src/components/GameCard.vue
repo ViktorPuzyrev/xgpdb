@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-3 mt-0 d-flex flex-column" width="250">
+  <v-card class="ma-3 mt-0 d-flex flex-column" :width="cardWidth">
     <v-img :src="game.cover" width="100%">
       <v-hover>
         <template v-slot:default="{ hover }">
@@ -164,6 +164,10 @@ export default {
     },
     styleMCUserScore() {
       return this.metacriticStyle(this.game.MCUserScore, "50%", 7.5, 7.4, 5.0);
+    },
+    cardWidth() {
+      const { xl, lg, md } = this.$vuetify.breakpoint;
+      return xl ? 250 : lg ? 240 : md ? 220 : 250;
     },
   },
   methods: {

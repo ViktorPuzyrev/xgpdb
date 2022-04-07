@@ -74,7 +74,6 @@ export default {
   components: { GameCard, TheFilter },
   data() {
     return {
-      games: null,
       gameTitle: null,
       searchInDescription: false,
       genres: [],
@@ -91,7 +90,7 @@ export default {
         { text: "MC(US) рейтинг", value: "MCUSrating" },
       ],
       gamesPerPage: 20,
-      gamesPerPageSelect: [20, 50, 100],
+      gamesPerPageSelect: [20, 60, 100],
       page: 1,
     };
   },
@@ -99,6 +98,9 @@ export default {
     return { getGames: () => this.games };
   },
   computed: {
+    games() {
+      return this.$store.state.games;
+    },
     filteredGames: {
       get: function () {
         function filtrGame(arr, obj, key) {
@@ -217,21 +219,13 @@ export default {
         }
         return result;
       }
-      if (this.filteredGames !== null) {
-        return chunk(this.filteredGames, this.gamesPerPage);
-      } else {
-        return 0;
-      }
+      return chunk(this.filteredGames, this.gamesPerPage);
     },
     pages() {
       return this.paginatedGames.length;
     },
     counterOfGames() {
-      if (this.filteredGames !== null) {
-        return this.filteredGames.length;
-      } else {
-        return 0;
-      }
+      return this.filteredGames.length;
     },
   },
   watch: {
@@ -244,15 +238,6 @@ export default {
     gamesPerPage() {
       this.page = 1;
     },
-  },
-  methods: {
-    async initData() {
-      const response = await fetch("api/xgpdb/");
-      this.games = await response.json();
-    },
-  },
-  async created() {
-    this.initData();
   },
 };
 </script>

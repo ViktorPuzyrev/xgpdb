@@ -29,5 +29,13 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    async initData() {
+      this.$store.dispatch("initData");
+    },
+  },
+  async created() {
+    this.initData();
+  },
 };
 </script>

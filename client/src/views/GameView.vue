@@ -163,13 +163,14 @@ export default {
   name: "GameView",
   mixins: [gameDataHandler],
   data() {
-    return {
-      game: null,
-    };
+    return {};
   },
   computed: {
     gameId() {
       return this.$route.params.id;
+    },
+    game() {
+      return this.$store.state.games.find((game) => game.id === this.gameId);
     },
     styleMCRating() {
       return this.metacriticStyle(this.game.MCRating, "7px", 75, 74, 50);
@@ -178,15 +179,9 @@ export default {
       return this.metacriticStyle(this.game.MCUserScore, "50%", 7.5, 7.4, 5.0);
     },
   },
-  watch: {
-    game() {
-      document.title = this.game.ruTitle + " - XGPdb";
-    },
-  },
   methods: {
-    async initData() {
-      const response = await fetch("api/xgpdb/game/" + this.gameId);
-      this.game = await response.json();
+    pageTitle() {
+      document.title = this.game.ruTitle + " - XGPdb";
     },
     metacriticStyle(key, radius, a, b, c) {
       const style = {
@@ -207,7 +202,7 @@ export default {
     },
   },
   async created() {
-    this.initData();
+    this.pageTitle();
   },
 };
 </script>
