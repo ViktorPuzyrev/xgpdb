@@ -1,12 +1,14 @@
-import Vue from "vue";
-import Vuex from "vuex";
-
-Vue.use(Vuex);
-
 const state = {
   games: [],
 };
-
+const getters = {
+  allGames: (state) => {
+    return state.games;
+  },
+  gameById: (state) => (id) => {
+    return state.games.find((game) => game.id === id);
+  },
+};
 const mutations = {
   initData(state, payload) {
     state.games = payload;
@@ -20,8 +22,9 @@ const actions = {
   },
 };
 
-export default new Vuex.Store({
+export default {
   state,
+  getters,
   mutations,
   actions,
-});
+};

@@ -157,6 +157,7 @@
 </template>
 
 <script>
+import store from "../store";
 import gameDataHandler from "../mixins/gameDataHandler.vue";
 
 export default {
@@ -170,7 +171,7 @@ export default {
       return this.$route.params.id;
     },
     game() {
-      return this.$store.state.games.find((game) => game.id === this.gameId);
+      return store.getters.gameById(this.gameId);
     },
     styleMCRating() {
       return this.metacriticStyle(this.game.MCRating, "7px", 75, 74, 50);

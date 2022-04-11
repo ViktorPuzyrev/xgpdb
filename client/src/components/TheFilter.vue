@@ -19,7 +19,6 @@
           hide-details
           class="mt-2"
           color="green darken-3"
-          @click="$emit('searchInDescription')"
         ></v-checkbox>
         <v-card class="mt-3">
           <v-card-title class="pt-2 pb-0">Жанр</v-card-title>
@@ -178,6 +177,7 @@
 </template>
 
 <script>
+import store from "../store";
 import AllStatistics from "./AllStatistics.vue";
 
 export default {
@@ -185,10 +185,7 @@ export default {
   components: { AllStatistics },
   data() {
     return {
-      gameTitle: null,
-      searchInDescription: false,
       showGenres: false,
-      genres: [],
       mainGenres: [
         { value: "shooter", text: "Шутеры" },
         { value: "actionAndAdventure", text: "Экшн и приключения" },
@@ -209,7 +206,6 @@ export default {
         { value: "music", text: "Музыка" },
       ],
       showFeatures: false,
-      features: [],
       mainFeatures: [
         { value: "ultraHd", text: "4K Ultra HD" },
         {
@@ -230,7 +226,6 @@ export default {
         { value: "fps60", text: "60 FPS" },
         { value: "fps120", text: "120 FPS" },
       ],
-      localization: [],
       ruLocalization: [
         { value: "interface", text: "Итнтерфейс" },
         { value: "subtitles", text: "Субтитры" },
@@ -238,32 +233,55 @@ export default {
       ],
     };
   },
-  watch: {
-    gameTitle() {
-      this.$emit("gameTitle", this.gameTitle);
+  computed: {
+    gameTitle: {
+      get() {
+        return store.state.filter.gameTitle;
+      },
+      set(value) {
+        store.commit("updateGameTitle", value);
+      },
     },
-    genres() {
-      this.$emit("genres", this.genres);
+    searchInDescription: {
+      get() {
+        return store.state.filter.searchInDescription;
+      },
+      set(value) {
+        store.commit("updateSearchInDescription", value);
+      },
     },
-    features() {
-      this.$emit("features", this.features);
+    genres: {
+      get() {
+        return store.state.filter.genres;
+      },
+      set(value) {
+        store.commit("updateGenres", value);
+      },
     },
-    localization() {
-      this.$emit("localization", this.localization);
+    features: {
+      get() {
+        return store.state.filter.features;
+      },
+      set(value) {
+        store.commit("updateFeatures", value);
+      },
     },
-    searchInDescription() {
-      this.$emit("searchInDescription", this.searchInDescription);
+    localization: {
+      get() {
+        return store.state.filter.localization;
+      },
+      set(value) {
+        store.commit("updateLocalization", value);
+      },
     },
   },
-
   methods: {
     clearAll() {
       (this.gameTitle = null),
         (this.searchInDescription = false),
         (this.genres = []),
         (this.features = []),
-        (this.localization = []),
-        this.$emit("clearSearch");
+        (this.localization = []);
     },
   },
 };

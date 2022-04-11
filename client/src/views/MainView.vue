@@ -1,16 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col sm="4" md="3" lg="2" class="pr-0"
-        ><TheFilter
-          @clearSearch="filteredGames = JSON.parse(JSON.stringify(games))"
-          @searchInDescription="searchInDescription = $event"
-          @gameTitle="gameTitle = $event"
-          @genres="genres = $event"
-          @features="features = $event"
-          @localization="localization = $event"
-        />
-      </v-col>
+      <v-col sm="4" md="3" lg="2" class="pr-0"><TheFilter /> </v-col>
       <v-col>
         <v-row>
           <v-col class="pt-7 pb-4">
@@ -66,6 +57,7 @@
 </template>
 
 <script>
+import store from "../store/";
 import GameCard from "../components/GameCard.vue";
 import TheFilter from "../components/TheFilter";
 
@@ -74,13 +66,6 @@ export default {
   components: { GameCard, TheFilter },
   data() {
     return {
-      gameTitle: null,
-      searchInDescription: false,
-      genres: [],
-      features: [],
-      localization: [],
-      reverseSort: false,
-      sortingBy: "date",
       sortItems: [
         { text: "Дата", value: "date" },
         { text: "Название", value: "title" },
@@ -89,154 +74,53 @@ export default {
         { text: "MC(MS) рейтинг", value: "MCMSrating" },
         { text: "MC(US) рейтинг", value: "MCUSrating" },
       ],
-      gamesPerPage: 20,
       gamesPerPageSelect: [20, 60, 100],
-      page: 1,
     };
-  },
-  provide() {
-    return { getGames: () => this.games };
   },
   computed: {
     games() {
-      return this.$store.state.games;
+      return store.state.games.games;
     },
-    filteredGames: {
-      get: function () {
-        function filtrGame(arr, obj, key) {
-          const filtredArr = arr.filter((item) => {
-            switch (obj) {
-              case "genres":
-                return item.genres.includes(key);
-              case "features":
-                return item.featuresList.includes(key);
-              case "localization":
-                return item.ruLocalization.includes(key);
-            }
-          });
-          return filtredArr;
-        }
-        let filteredGamesList = JSON.parse(JSON.stringify(this.games));
-        if (this.genres.length !== 0) {
-          for (const key of this.genres) {
-            filteredGamesList = filtrGame(filteredGamesList, "genres", key);
-          }
-        }
-        if (this.features.length !== 0) {
-          for (const key of this.features) {
-            filteredGamesList = filtrGame(filteredGamesList, "features", key);
-          }
-        }
-        if (this.localization.length !== 0) {
-          for (const key of this.localization) {
-            filteredGamesList = filtrGame(
-              filteredGamesList,
-              "localization",
-              key
-            );
-          }
-        }
-        function searchInString(arr, searchIn, str) {
-          const searchArr = arr.filter((item) => {
-            switch (searchIn) {
-              case false:
-                if (
-                  item.ruTitle.toLowerCase().indexOf(str.toLowerCase()) !== -1
-                ) {
-                  return true;
-                }
-                break;
-              case true:
-                if (
-                  item.description.toLowerCase().indexOf(str.toLowerCase()) !==
-                  -1
-                ) {
-                  return true;
-                }
-                break;
-              default:
-                break;
-            }
-          });
-          return searchArr;
-        }
-        if (this.gameTitle) {
-          filteredGamesList = searchInString(
-            filteredGamesList,
-            this.searchInDescription,
-            this.gameTitle
-          );
-        }
-        function sortedGames(arr, sortType, key) {
-          arr.sort(function (a, b) {
-            switch (sortType) {
-              case "str":
-                if (a[key].toLowerCase() > b[key].toLowerCase()) {
-                  return 1;
-                }
-                if (a[key].toLowerCase() < b[key].toLowerCase()) {
-                  return -1;
-                }
-                return 0;
-              case "num":
-                return b[key] - a[key];
-              default:
-                break;
-            }
-          });
-        }
-        switch (this.sortingBy) {
-          case "title":
-            sortedGames(filteredGamesList, "str", "ruTitle");
-            break;
-          case "MSrating":
-            sortedGames(filteredGamesList, "num", "MSrating");
-            break;
-          case "OCrating":
-            sortedGames(filteredGamesList, "num", "topOCAverage");
-            break;
-          case "MCMSrating":
-            sortedGames(filteredGamesList, "num", "MCRating");
-            break;
-          case "MCUSrating":
-            sortedGames(filteredGamesList, "num", "MCUserScore");
-            break;
-          default:
-            break;
-        }
-        if (this.reverseSort) {
-          filteredGamesList = filteredGamesList.reverse();
-        }
-        return filteredGamesList;
+    sortingBy: {
+      get() {
+        return store.state.filter.sortingBy;
       },
-      set: function () {},
+      set(value) {
+        store.commit("updateSortingBy", value);
+      },
     },
-    paginatedGames() {
-      function chunk(arr, size) {
-        const result = [];
-        for (let i = 0; i < Math.ceil(arr.length / size); i++) {
-          result.push(arr.slice(i * size, i * size + size));
-        }
-        return result;
-      }
-      return chunk(this.filteredGames, this.gamesPerPage);
+    reverseSort: {
+      get() {
+        return store.state.filter.reverseSort;
+      },
+      set() {
+        store.commit("updateReverseSort");
+      },
     },
-    pages() {
-      return this.paginatedGames.length;
+    gamesPerPage: {
+      get() {
+        return store.state.filter.gamesPerPage;
+      },
+      set(value) {
+        store.commit("updateGamesPerPage", value);
+      },
+    },
+    page: {
+      get() {
+        return store.state.filter.page;
+      },
+      set(value) {
+        store.commit("updatePage", value);
+      },
     },
     counterOfGames() {
-      return this.filteredGames.length;
+      return store.getters.counterOfGames;
     },
-  },
-  watch: {
-    games() {
-      this.filteredGames = JSON.parse(JSON.stringify(this.games));
+    paginatedGames() {
+      return store.getters.paginatedGames;
     },
-    filteredGames() {
-      this.page = 1;
-    },
-    gamesPerPage() {
-      this.page = 1;
+    pages() {
+      return store.getters.pages;
     },
   },
 };

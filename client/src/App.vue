@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import store from "./store/";
 import TheHeader from "./components/TheHeader";
 import TheFooter from "./components/TheFooter";
 
@@ -31,7 +32,7 @@ export default {
   },
   methods: {
     async initData() {
-      this.$store.dispatch("initData");
+      store.dispatch("initData");
     },
   },
   async created() {

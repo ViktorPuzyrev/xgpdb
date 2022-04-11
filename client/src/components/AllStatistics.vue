@@ -30,9 +30,10 @@
   </div>
 </template>
 <script>
+import store from "../store";
+
 export default {
   name: "AllStatistics",
-  inject: ["getGames"],
   data() {
     return {
       dialog: false,
@@ -40,7 +41,7 @@ export default {
   },
   computed: {
     games() {
-      return this.getGames();
+      return store.getters.allGames;
     },
     totalGames() {
       if (this.games) {
