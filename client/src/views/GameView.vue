@@ -6,114 +6,8 @@
       <div class="d-flex flex-no-wrap justify-start">
         <div>
           <v-img width="300" :src="game.cover">
-            <v-row no-gutters style="height: 390px"></v-row>
-            <v-row
-              no-gutters
-              align="center"
-              style="height: 60px; background-color: #2e7d32"
-              ><v-col
-                ><v-tooltip top color="black">
-                  <template v-slot:activator="{ on, attrs }">
-                    <p
-                      v-bind="attrs"
-                      v-on="on"
-                      v-if="game.MSrating"
-                      class="white--text text-center text-h4 ma-0"
-                    >
-                      {{ game.MSrating }}
-                    </p>
-                    <p
-                      v-bind="attrs"
-                      v-on="on"
-                      v-else
-                      class="white--text text-center text-h4 ma-0"
-                    >
-                      ==
-                    </p></template
-                  >
-                  <span>Microsoft Store</span>
-                </v-tooltip> </v-col
-              ><v-col
-                ><v-tooltip top color="black">
-                  <template v-slot:activator="{ on, attrs }"
-                    ><div
-                      v-bind="attrs"
-                      v-on="on"
-                      class="ma-auto"
-                      :style="styleMCRating"
-                    >
-                      <p
-                        v-if="game.MCRating"
-                        class="white--text text-center text-h4 ma-0"
-                      >
-                        {{ game.MCRating }}
-                      </p>
-                      <p v-else class="white--text text-center text-h4 ma-0">
-                        ==
-                      </p>
-                    </div></template
-                  >
-                  <span>Metacritic Metascore</span>
-                </v-tooltip></v-col
-              ><v-col
-                ><v-tooltip top color="black">
-                  <template v-slot:activator="{ on, attrs }">
-                    <div
-                      v-bind="attrs"
-                      v-on="on"
-                      class="ma-auto"
-                      :style="styleMCUserScore"
-                    >
-                      <p
-                        v-if="game.MCUserScore"
-                        class="white--text text-center text-h4 ma-0"
-                      >
-                        {{ game.MCUserScore }}
-                      </p>
-                      <p v-else class="white--text text-center text-h4 ma-0">
-                        ==
-                      </p>
-                    </div></template
-                  >
-                  <span>Metacritic Userscore</span>
-                </v-tooltip> </v-col
-              ><v-col
-                ><v-tooltip top color="black">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-img
-                      v-bind="attrs"
-                      v-on="on"
-                      v-if="OCSticker"
-                      :src="OCSticker"
-                      style="width: 55px"
-                    ></v-img>
-                    <p
-                      v-bind="attrs"
-                      v-on="on"
-                      v-else
-                      class="white--text text-center text-h4 ma-0"
-                    >
-                      ==
-                    </p>
-                  </template>
-                  <span>Opencritic</span>
-                </v-tooltip></v-col
-              ><v-col class="pl-1"
-                ><v-tooltip top color="black">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-img
-                      v-bind="attrs"
-                      v-on="on"
-                      v-if="game.MCMustPlay"
-                      src="@/assets/mc-mustplay.svg"
-                      style="width: 55px"
-                    ></v-img
-                  ></template>
-                  <span>Metacritic Must Play</span>
-                </v-tooltip>
-              </v-col></v-row
-            >
-          </v-img>
+            <StickersPanel :game="game" :width="300"
+          /></v-img>
         </div>
         <div>
           <v-card-text class="text-body-1 pb-0">
@@ -172,25 +66,18 @@
 <script>
 import store from "../store";
 import gameDataHandler from "../mixins/gameDataHandler.vue";
+import StickersPanel from "../components/StickersPanel.vue";
 
 export default {
   name: "GameView",
+  components: { StickersPanel },
   mixins: [gameDataHandler],
-  data() {
-    return {};
-  },
   computed: {
     gameId() {
       return this.$route.params.id;
     },
     game() {
       return store.getters.gameById(this.gameId);
-    },
-    styleMCRating() {
-      return this.metacriticStyle(this.game.MCRating, "7px", 75, 74, 50);
-    },
-    styleMCUserScore() {
-      return this.metacriticStyle(this.game.MCUserScore, "50%", 7.5, 7.4, 5.0);
     },
   },
   watch: {
@@ -203,23 +90,6 @@ export default {
       if (this.game) {
         document.title = this.game.ruTitle + " - XGPdb";
       }
-    },
-    metacriticStyle(key, radius, a, b, c) {
-      const style = {
-        width: "55px",
-        height: "55px",
-        backgroundColor: "",
-        borderRadius: radius,
-        paddingTop: "8px",
-      };
-      if (key >= a) {
-        style.backgroundColor = "#6c3";
-      } else if (c > key && key <= b) {
-        style.backgroundColor = "#f00";
-      } else {
-        style.backgroundColor = "#fc3";
-      }
-      return style;
     },
   },
   async created() {

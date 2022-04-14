@@ -1,139 +1,14 @@
 <template>
   <v-card class="ma-3 mt-0 d-flex flex-column" :width="cardWidth">
-    <v-img :src="game.cover" width="100%">
-      <v-hover>
-        <template v-slot:default="{ hover }">
-          <v-row no-gutters style="height: 325px">
-            <v-fade-transition>
-              <v-overlay v-if="hover" absolute>
-                <v-btn color="green darken-3"
-                  ><router-link
-                    :to="{
-                      name: 'Game',
-                      params: { id: game.id },
-                    }"
-                    class="text-decoration-none white--text"
-                    >Подробнее</router-link
-                  >
-                </v-btn>
-              </v-overlay>
-            </v-fade-transition>
-          </v-row>
-        </template>
-      </v-hover>
-      <v-row
-        no-gutters
-        align="center"
-        style="height: 50px; background-color: #2e7d32"
-        ><v-col>
-          <v-tooltip top color="black">
-            <template v-slot:activator="{ on, attrs }">
-              <p
-                v-if="game.MSrating"
-                class="white--text text-center text-h5 ma-0"
-                v-bind="attrs"
-                v-on="on"
-              >
-                {{ game.MSrating }}
-              </p>
-              <p
-                v-bind="attrs"
-                v-on="on"
-                v-else
-                class="white--text text-center text-h5 ma-0"
-              >
-                ==
-              </p>
-            </template>
-            <span>Microsoft Store</span>
-          </v-tooltip> </v-col
-        ><v-col>
-          <v-tooltip top color="black">
-            <template v-slot:activator="{ on, attrs }">
-              <div
-                v-bind="attrs"
-                v-on="on"
-                class="ma-auto"
-                :style="styleMCRating"
-              >
-                <p
-                  v-if="game.MCRating"
-                  class="white--text text-center text-h5 ma-0"
-                >
-                  {{ game.MCRating }}
-                </p>
-                <p v-else class="white--text text-center text-h5 ma-0">==</p>
-              </div></template
-            >
-            <span>Metacritic Metascore</span>
-          </v-tooltip></v-col
-        ><v-col>
-          <v-tooltip top color="black">
-            <template v-slot:activator="{ on, attrs }">
-              <div
-                v-bind="attrs"
-                v-on="on"
-                class="ma-auto"
-                :style="styleMCUserScore"
-              >
-                <p
-                  v-if="game.MCUserScore"
-                  class="white--text text-center text-h5 ma-0"
-                >
-                  {{ game.MCUserScore }}
-                </p>
-                <p v-else class="white--text text-center text-h5 ma-0">==</p>
-              </div></template
-            >
-            <span>Metacritic Userscore</span>
-          </v-tooltip> </v-col
-        ><v-col
-          ><v-tooltip top color="black">
-            <template v-slot:activator="{ on, attrs }">
-              <v-img
-                v-bind="attrs"
-                v-on="on"
-                v-if="OCSticker"
-                :src="OCSticker"
-                style="width: 45px"
-              ></v-img>
-              <p
-                v-bind="attrs"
-                v-on="on"
-                v-else
-                class="white--text text-center text-h5 ma-0"
-              >
-                ==
-              </p>
-            </template>
-            <span>Opencritic</span>
-          </v-tooltip></v-col
-        ><v-col
-          ><v-tooltip top color="black">
-            <template v-slot:activator="{ on, attrs }">
-              <v-img
-                v-bind="attrs"
-                v-on="on"
-                v-if="game.MCMustPlay"
-                src="@/assets/mc-mustplay.svg"
-                style="width: 45px"
-              ></v-img
-            ></template>
-            <span>Metacritic Must Play</span>
-          </v-tooltip>
-        </v-col></v-row
-      > </v-img
+    <v-img :src="game.cover">
+      <StickersPanel :game="game" :width="cardWidth" :moreInfo="true" /> </v-img
     ><v-divider></v-divider
-    ><v-card-title
-      class="d-inline-block pa-2 text-truncate"
-      style="max-width: 300px"
-      >{{ game.ruTitle }}</v-card-title
-    >
-    <v-card-subtitle
-      class="d-inline-block pa-2 text-truncate"
-      style="max-width: 250px"
-      >{{ genres }}</v-card-subtitle
-    >
+    ><v-card-title class="d-inline-block pa-2 text-truncate">{{
+      game.ruTitle
+    }}</v-card-title>
+    <v-card-subtitle class="d-inline-block pa-2 text-truncate">{{
+      genres
+    }}</v-card-subtitle>
     <v-card-actions class="pt-0">
       <v-row class="d-flex justify-space-between">
         <v-col
@@ -152,41 +27,18 @@
 </template>
 
 <script>
+import StickersPanel from "./StickersPanel.vue";
 import gameDataHandler from "../mixins/gameDataHandler.vue";
 
 export default {
   name: "GameCard",
+  components: { StickersPanel },
   mixins: [gameDataHandler],
   props: ["game"],
   computed: {
-    styleMCRating() {
-      return this.metacriticStyle(this.game.MCRating, "5px", 75, 74, 50);
-    },
-    styleMCUserScore() {
-      return this.metacriticStyle(this.game.MCUserScore, "50%", 7.5, 7.4, 5.0);
-    },
     cardWidth() {
       const { xl, lg, md } = this.$vuetify.breakpoint;
       return xl ? 250 : lg ? 240 : md ? 220 : 250;
-    },
-  },
-  methods: {
-    metacriticStyle(key, radius, a, b, c) {
-      const style = {
-        width: "45px",
-        height: "45px",
-        backgroundColor: "",
-        borderRadius: radius,
-        paddingTop: "7px",
-      };
-      if (key >= a) {
-        style.backgroundColor = "#6c3";
-      } else if (c > key && key <= b) {
-        style.backgroundColor = "#f00";
-      } else {
-        style.backgroundColor = "#fc3";
-      }
-      return style;
     },
   },
 };
