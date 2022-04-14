@@ -111,6 +111,7 @@ export default {
       },
       set(value) {
         store.commit("updatePage", value);
+        this.toTop();
       },
     },
     counterOfGames() {
@@ -121,6 +122,13 @@ export default {
     },
     pages() {
       return store.getters.pages;
+    },
+  },
+  methods: {
+    toTop() {
+      window.scrollTo({
+        top: 0,
+      });
     },
   },
 };
