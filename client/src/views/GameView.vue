@@ -151,8 +151,21 @@
       >
         <v-carousel-item v-for="(slide, i) in game.screens" :key="i" eager>
           <v-img :src="slide" contain eager></v-img>
-        </v-carousel-item> </v-carousel
-    ></v-card>
+        </v-carousel-item>
+      </v-carousel>
+    </v-card>
+    <v-btn
+      color="green darken-3"
+      elevation="2"
+      class="mb-12"
+      dark
+      fab
+      fixed
+      bottom
+      right
+      @click="$router.back()"
+      ><v-icon>mdi-arrow-left-thick</v-icon></v-btn
+    >
   </v-container>
 </template>
 
@@ -180,9 +193,16 @@ export default {
       return this.metacriticStyle(this.game.MCUserScore, "50%", 7.5, 7.4, 5.0);
     },
   },
+  watch: {
+    game() {
+      this.pageTitle();
+    },
+  },
   methods: {
     pageTitle() {
-      document.title = this.game.ruTitle + " - XGPdb";
+      if (this.game) {
+        document.title = this.game.ruTitle + " - XGPdb";
+      }
     },
     metacriticStyle(key, radius, a, b, c) {
       const style = {
