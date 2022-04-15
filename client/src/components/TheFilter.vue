@@ -282,6 +282,8 @@ export default {
         (this.genres = []),
         (this.features = []),
         (this.localization = []);
+      this.showGenres = false;
+      this.showFeatures = false;
     },
   },
 };
