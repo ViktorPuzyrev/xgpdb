@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { Router } = require("express");
 const GameListItem = require("../models/gameListItem");
 
@@ -5,7 +6,12 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const gameListItems = await GameListItem.find();
+    const games = await GameListItem.find();
+    const dbUpdate = process.env.DB_UPDATE;
+    const gameListItems = {
+      games,
+      dbUpdate,
+    };
     res.status(200).json(gameListItems);
   } catch (error) {
     res.status(500).json({ message: error.message });

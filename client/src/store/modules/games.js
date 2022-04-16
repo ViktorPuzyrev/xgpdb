@@ -1,5 +1,6 @@
 const state = {
   games: [],
+  dbUpdate: "",
 };
 const getters = {
   allGames: (state) => {
@@ -11,7 +12,8 @@ const getters = {
 };
 const mutations = {
   initData(state, payload) {
-    state.games = payload;
+    state.games = payload.games;
+    state.dbUpdate = payload.dbUpdate;
   },
 };
 const actions = {
