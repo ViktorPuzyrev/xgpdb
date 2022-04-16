@@ -178,6 +178,7 @@
 
 <script>
 import store from "../store";
+import { mapMutations } from "vuex";
 import AllStatistics from "./AllStatistics.vue";
 
 export default {
@@ -239,7 +240,7 @@ export default {
         return store.state.filter.gameTitle;
       },
       set(value) {
-        store.commit("updateGameTitle", value);
+        this.updateGameTitle(value);
       },
     },
     searchInDescription: {
@@ -247,7 +248,7 @@ export default {
         return store.state.filter.searchInDescription;
       },
       set(value) {
-        store.commit("updateSearchInDescription", value);
+        this.updateSearchInDescription(value);
       },
     },
     genres: {
@@ -255,7 +256,7 @@ export default {
         return store.state.filter.genres;
       },
       set(value) {
-        store.commit("updateGenres", value);
+        this.updateGenres(value);
       },
     },
     features: {
@@ -263,7 +264,7 @@ export default {
         return store.state.filter.features;
       },
       set(value) {
-        store.commit("updateFeatures", value);
+        this.updateFeatures(value);
       },
     },
     localization: {
@@ -271,11 +272,18 @@ export default {
         return store.state.filter.localization;
       },
       set(value) {
-        store.commit("updateLocalization", value);
+        this.updateLocalization(value);
       },
     },
   },
   methods: {
+    ...mapMutations([
+      "updateGameTitle",
+      "updateSearchInDescription",
+      "updateGenres",
+      "updateFeatures",
+      "updateLocalization",
+    ]),
     clearAll() {
       (this.gameTitle = null),
         (this.searchInDescription = false),
@@ -284,6 +292,7 @@ export default {
         (this.localization = []);
       this.showGenres = false;
       this.showFeatures = false;
+      this.$emit('toTop')
     },
   },
 };

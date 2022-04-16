@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-row>
-      <v-col sm="4" md="3" lg="2" class="pr-0"><TheFilter /> </v-col>
+      <v-col sm="4" md="3" lg="2" class="pr-0"
+        ><TheFilter @toTop="toTop" />
+      </v-col>
       <v-col>
         <v-row>
           <v-col class="pt-7 pb-4">
@@ -58,6 +60,8 @@
 
 <script>
 import store from "../store/";
+import { mapGetters } from "vuex";
+import { mapMutations } from "vuex";
 import GameCard from "../components/GameCard.vue";
 import TheFilter from "../components/TheFilter";
 
@@ -78,6 +82,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["counterOfGames", "paginatedGames", "pages"]),
     games() {
       return store.state.games.games;
     },
@@ -86,7 +91,7 @@ export default {
         return store.state.filter.sortingBy;
       },
       set(value) {
-        store.commit("updateSortingBy", value);
+        this.updateSortingBy(value);
       },
     },
     reverseSort: {
@@ -94,7 +99,7 @@ export default {
         return store.state.filter.reverseSort;
       },
       set() {
-        store.commit("updateReverseSort");
+        this.updateReverseSort();
       },
     },
     gamesPerPage: {
@@ -102,7 +107,7 @@ export default {
         return store.state.filter.gamesPerPage;
       },
       set(value) {
-        store.commit("updateGamesPerPage", value);
+        this.updateGamesPerPage(value);
       },
     },
     page: {
@@ -110,21 +115,18 @@ export default {
         return store.state.filter.page;
       },
       set(value) {
-        store.commit("updatePage", value);
+        this.updatePage(value);
         this.toTop();
       },
     },
-    counterOfGames() {
-      return store.getters.counterOfGames;
-    },
-    paginatedGames() {
-      return store.getters.paginatedGames;
-    },
-    pages() {
-      return store.getters.pages;
-    },
   },
   methods: {
+    ...mapMutations([
+      "updateSortingBy",
+      "updateReverseSort",
+      "updateGamesPerPage",
+      "updatePage",
+    ]),
     toTop() {
       window.scrollTo({
         top: 0,

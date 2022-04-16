@@ -12,7 +12,8 @@
   },
   "keywords": [
     "express",
-    "vue"
+    "vue",
+    "vuex"
   ],
   "author": "Viktor Puzyrev <v.puzyrev.pktm@gmail.com>",
   "license": "ISC",

@@ -123,7 +123,11 @@ import gameDataHandler from "../mixins/gameDataHandler.vue";
 export default {
   name: "StickersPanel",
   mixins: [gameDataHandler],
-  props: ["game", "width", "moreInfo"],
+  props: {
+    game: { type: Object, required: true },
+    width: { type: Number, required: true },
+    moreInfo: Boolean,
+  },
   computed: {
     cell() {
       return {

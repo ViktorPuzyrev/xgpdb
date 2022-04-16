@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import store from "../store";
+import { mapGetters } from "vuex";
 
 export default {
   name: "AllStatistics",
@@ -40,9 +40,7 @@ export default {
     };
   },
   computed: {
-    games() {
-      return store.getters.allGames;
-    },
+    ...mapGetters({ games: "allGames" }),
     totalGames() {
       if (this.games) {
         return this.games.length;

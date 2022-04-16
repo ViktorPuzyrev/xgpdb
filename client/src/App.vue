@@ -27,9 +27,6 @@ export default {
     TheHeader,
     TheFooter,
   },
-  data() {
-    return {};
-  },
   methods: {
     async initData() {
       store.dispatch("initData");

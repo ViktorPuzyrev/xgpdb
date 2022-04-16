@@ -34,7 +34,7 @@ export default {
   name: "GameCard",
   components: { StickersPanel },
   mixins: [gameDataHandler],
-  props: ["game"],
+  props: { game: { type: Object, required: true } },
   computed: {
     cardWidth() {
       const { xl, lg, md } = this.$vuetify.breakpoint;
