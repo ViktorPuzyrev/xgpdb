@@ -285,6 +285,14 @@ export default {
       "updateLocalization",
     ]),
     clearAll() {
+      if (
+        this.gameTitle ||
+        this.genres.length ||
+        this.features.length ||
+        this.localization.length
+      ) {
+        this.$emit("toTop");
+      }
       (this.gameTitle = null),
         (this.searchInDescription = false),
         (this.genres = []),
@@ -292,7 +300,6 @@ export default {
         (this.localization = []);
       this.showGenres = false;
       this.showFeatures = false;
-      this.$emit('toTop')
     },
   },
 };
