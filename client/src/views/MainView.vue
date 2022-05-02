@@ -37,12 +37,25 @@
           ></v-col>
         </v-row>
         <v-row>
-          <div v-if="games" class="d-flex flex-wrap justify-space-around">
-            <GameCard
-              v-for="game in paginatedGames[page - 1]"
-              :key="game.id"
-              :game="game"
+          <div
+            v-if="loadingStatus"
+            class="d-flex flex-wrap justify-space-around"
+          >
+            <LoadingGameCard
+              v-for="n of gamesPerPage"
+              :key="n"
+              :cardWidth="cardWidth"
             />
+          </div>
+          <div v-else>
+            <div class="d-flex flex-wrap justify-space-around">
+              <GameCard
+                v-for="game in paginatedGames[page - 1]"
+                :key="game.id"
+                :game="game"
+                :cardWidth="cardWidth"
+              />
+            </div>
           </div>
         </v-row>
         <v-pagination
@@ -62,12 +75,13 @@
 import store from "../store/";
 import { mapGetters } from "vuex";
 import { mapMutations } from "vuex";
-import GameCard from "../components/GameCard.vue";
+import GameCard from "../components/GameCard";
 import TheFilter from "../components/TheFilter";
+import LoadingGameCard from "../components/LoadingGameCard";
 
 export default {
   name: "MainView",
-  components: { GameCard, TheFilter },
+  components: { GameCard, TheFilter, LoadingGameCard },
   data() {
     return {
       sortItems: [
@@ -82,7 +96,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["counterOfGames", "paginatedGames", "pages"]),
+    ...mapGetters([
+      "counterOfGames",
+      "paginatedGames",
+      "pages",
+      "loadingStatus",
+    ]),
     games() {
       return store.state.games.games;
     },
@@ -118,6 +137,10 @@ export default {
         this.updatePage(value);
         this.toTop();
       },
+    },
+    cardWidth() {
+      const { xl, lg, md } = this.$vuetify.breakpoint;
+      return xl ? 250 : lg ? 240 : md ? 220 : 250;
     },
   },
   methods: {

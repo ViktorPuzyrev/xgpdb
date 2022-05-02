@@ -1,8 +1,12 @@
 const state = {
+  loading: true,
   games: [],
   dbUpdate: "",
 };
 const getters = {
+  loadingStatus: (state) => {
+    return state.loading;
+  },
   allGames: (state) => {
     return state.games;
   },
@@ -13,6 +17,7 @@ const getters = {
 const mutations = {
   initData(state, payload) {
     state.games = payload.games;
+    state.loading = false;
     state.dbUpdate = payload.dbUpdate;
   },
 };

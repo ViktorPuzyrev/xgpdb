@@ -10,7 +10,7 @@
       genres
     }}</v-card-subtitle>
     <v-card-actions class="pt-0">
-      <v-row class="d-flex justify-space-between">
+      <v-row>
         <v-col
           ><v-btn block color="green darken-3"
             ><a
@@ -34,12 +34,9 @@ export default {
   name: "GameCard",
   components: { StickersPanel },
   mixins: [gameDataHandler],
-  props: { game: { type: Object, required: true } },
-  computed: {
-    cardWidth() {
-      const { xl, lg, md } = this.$vuetify.breakpoint;
-      return xl ? 250 : lg ? 240 : md ? 220 : 250;
-    },
+  props: {
+    game: { type: Object, required: true },
+    cardWidth: { type: Number, required: true },
   },
 };
 </script>
