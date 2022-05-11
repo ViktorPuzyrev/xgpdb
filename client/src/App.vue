@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <TheHeader />
+  <v-app
+    ><TheHeader />
     <v-main>
       <router-view :key="$route.path"></router-view>
     </v-main>
@@ -37,3 +37,24 @@ export default {
   },
 };
 </script>
+
+<style>
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e6e6e6;
+  border-left: 1px solid #dadada;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b0b0b0;
+  border: solid 3px #e6e6e6;
+  border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2e7d32;
+}
+</style>
