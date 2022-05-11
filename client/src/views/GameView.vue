@@ -3,13 +3,13 @@
     <v-card>
       <v-card-title class="pa-2">{{ game.ruTitle }}</v-card-title>
       <v-divider></v-divider>
-      <div class="d-flex flex-no-wrap justify-start">
+      <div class="d-none d-sm-flex justify-start">
         <div>
           <v-img width="300" :src="game.cover">
             <StickersPanel :game="game" :width="300"
           /></v-img>
         </div>
-        <div>
+        <div class="d-none d-sm-block">
           <v-card-text class="text-body-1 pb-0">
             <strong>Жанры:</strong> {{ genres }}<br />
             <strong>Функции:</strong> {{ features }}<br />
@@ -21,8 +21,37 @@
             <strong>Ачивки:</strong> {{ achievements }}<br />
             <strong>Продолжительность:</strong> {{ HLTB }}
           </v-card-text>
-
           <v-btn color="green darken-3 ma-4"
+            ><a
+              :href="game.link"
+              class="text-decoration-none white--text"
+              target="_blank"
+              >Microsoft<v-icon right>mdi-share</v-icon></a
+            >
+          </v-btn>
+        </div>
+      </div>
+      <div class="d-flex d-sm-none justify-center">
+        <div>
+          <v-img width="300" :src="game.cover">
+            <StickersPanel :game="game" :width="300"
+          /></v-img>
+        </div>
+      </div>
+      <div class="d-sm-none">
+        <v-card-text class="text-body-1 pb-0">
+          <strong>Жанры:</strong> {{ genres }}<br />
+          <strong>Функции:</strong> {{ features }}<br />
+          <strong>Локализация:</strong> {{ localization }}<br />
+          <strong>Разработчик:</strong> {{ game.developer }}<br />
+          <strong>Издатель:</strong> {{ game.publisher }}<br />
+          <strong>Дата выпуска:</strong> {{ game.releaseDate }}<br />
+          <strong>ESRB:</strong> {{ game.esrb }}<br />
+          <strong>Ачивки:</strong> {{ achievements }}<br />
+          <strong>Продолжительность:</strong> {{ HLTB }}
+        </v-card-text>
+        <div class="d-flex pa-4 pb-0">
+          <v-btn color="green darken-3" block
             ><a
               :href="game.link"
               class="text-decoration-none white--text"

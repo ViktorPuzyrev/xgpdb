@@ -1,16 +1,15 @@
 <template>
-  <div>
+  <div class="px-2">
     <v-row>
-      <v-col sm="4" md="3" lg="2" class="pr-0"
-        ><TheFilter @toTop="toTop" />
-      </v-col>
       <v-col>
-        <v-row>
-          <v-col class="pt-7 pb-4">
-            <span>Игр в списке: {{ counterOfGames }}</span></v-col
+        <v-row no-gutters class="mt-3">
+          <v-col cols="12" xs="12" sm="4" md="4" class="d-flex">
+            <span class="my-auto"
+              >Игр в списке: {{ counterOfGames }}</span
+            ></v-col
           >
-          <v-spacer></v-spacer>
-          <v-col md="4" lg="3" class="d-flex pb-0">
+          <v-spacer class="d-none d-sm-block"></v-spacer>
+          <v-col cols="12" xs="6" sm="5" md="4" lg="3" class="d-none d-sm-flex">
             <v-select
               v-model="sortingBy"
               :items="sortItems"
@@ -19,20 +18,43 @@
               dense
               solo
               hide-details
-              class="mt-2 mr-2"
             ></v-select>
-            <v-btn text class="mt-2" @click="reverseSort = !reverseSort"
+            <v-btn text class="mx-2 my-auto" @click="reverseSort = !reverseSort"
               ><v-icon> mdi-swap-vertical-bold </v-icon></v-btn
             >
           </v-col>
-          <v-col md="2" lg="1" class="d-flex pl-0 pb-0">
+          <v-col cols="12" xs="6" sm="3" md="2" lg="1" class="d-none d-sm-flex">
             <v-select
               v-model="gamesPerPage"
               :items="gamesPerPageSelect"
               dense
               solo
               hide-details
-              class="mt-2 mr-2"
+            ></v-select
+          ></v-col>
+        </v-row>
+        <v-row no-gutters class="d-sm-none mt-3">
+          <v-col cols="9" class="d-flex">
+            <v-select
+              v-model="sortingBy"
+              :items="sortItems"
+              item-text="text"
+              item-value="value"
+              dense
+              solo
+              hide-details
+            ></v-select>
+            <v-btn text class="mx-2 my-auto" @click="reverseSort = !reverseSort"
+              ><v-icon> mdi-swap-vertical-bold </v-icon></v-btn
+            >
+          </v-col>
+          <v-col cols="3" class="d-flex">
+            <v-select
+              v-model="gamesPerPage"
+              :items="gamesPerPageSelect"
+              dense
+              solo
+              hide-details
             ></v-select
           ></v-col>
         </v-row>
@@ -76,12 +98,11 @@ import store from "../store/";
 import { mapGetters } from "vuex";
 import { mapMutations } from "vuex";
 import GameCard from "../components/GameCard";
-import TheFilter from "../components/TheFilter";
 import LoadingGameCard from "../components/LoadingGameCard";
 
 export default {
   name: "MainView",
-  components: { GameCard, TheFilter, LoadingGameCard },
+  components: { GameCard, LoadingGameCard },
   data() {
     return {
       sortItems: [
@@ -139,8 +160,8 @@ export default {
       },
     },
     cardWidth() {
-      const { xl, lg, md } = this.$vuetify.breakpoint;
-      return xl ? 250 : lg ? 240 : md ? 220 : 250;
+      const { xl, lg, md, sm } = this.$vuetify.breakpoint;
+      return xl ? 250 : lg ? 240 : md ? 220 : sm ? 240 : 350;
     },
   },
   methods: {
