@@ -1,6 +1,6 @@
 {
   "name": "xgpdb-back",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "XGP library",
   "main": "server.js",
   "scripts": {
@@ -11,9 +11,9 @@
     "build": "npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [
+    "node",
     "express",
-    "vue",
-    "vuex"
+    "mongodb"
   ],
   "author": "Viktor Puzyrev <v.puzyrev.pktm@gmail.com>",
   "license": "ISC",

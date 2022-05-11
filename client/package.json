@@ -1,12 +1,19 @@
 {
   "name": "xgpdb",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "keywords": [
+    "vue",
+    "vuex",
+    "vuetify"
+  ],
+  "author": "Viktor Puzyrev <v.puzyrev.pktm@gmail.com>",
+  "license": "ISC",
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "^2.6.14",
