@@ -153,23 +153,16 @@ export default {
   },
   methods: {
     metacriticStyle(key, radius, a, b, c) {
-      const style = {
+      return {
         width: (this.width / 5) * 0.9 + "px",
         height: (this.width / 5) * 0.9 + "px",
-        backgroundColor: "",
+        backgroundColor:
+          key >= a ? "#6c3" : c > key && key <= b ? "#f00" : "#fc3",
         borderRadius: radius,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
       };
-      if (key >= a) {
-        style.backgroundColor = "#6c3";
-      } else if (c > key && key <= b) {
-        style.backgroundColor = "#f00";
-      } else {
-        style.backgroundColor = "#fc3";
-      }
-      return style;
     },
   },
 };

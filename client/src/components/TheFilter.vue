@@ -207,10 +207,7 @@ export default {
       showFeatures: false,
       mainFeatures: [
         { value: "ultraHd", text: "4K Ultra HD" },
-        {
-          value: "opitmizedXSeries",
-          text: "Xbox Series X|S",
-        },
+        { value: "opitmizedXSeries", text: "Xbox Series X|S" },
         { value: "xoxEnhanced", text: "Xbox One X" },
       ],
       secondaryFeatures: [
@@ -218,10 +215,7 @@ export default {
         { value: "onlineCoop", text: "Сетевой кооп" },
         { value: "onlineMP", text: "Сетевой мультиплеер" },
         { value: "localCoop", text: "Локальный кооп" },
-        {
-          value: "localMP",
-          text: "Локальный мультиплеер",
-        },
+        { value: "localMP", text: "Локальный мультиплеер" },
         { value: "fps60", text: "60 FPS" },
         { value: "fps120", text: "120 FPS" },
       ],
@@ -293,13 +287,9 @@ export default {
           top: 0,
         });
       }
-      (this.gameTitle = null),
-        (this.searchInDescription = false),
-        (this.genres = []),
-        (this.features = []),
-        (this.localization = []);
-      this.showGenres = false;
-      this.showFeatures = false;
+      this.gameTitle = null;
+      this.searchInDescription = this.showGenres = this.showFeatures = false;
+      this.genres = this.features = this.localization = [];
     },
   },
 };

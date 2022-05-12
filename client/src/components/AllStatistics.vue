@@ -42,24 +42,14 @@ export default {
   computed: {
     ...mapGetters({ games: "allGames" }),
     totalGames() {
-      if (this.games) {
-        return this.games.length;
-      } else {
-        return 0;
-      }
+      return this.games ? this.games.length : 0;
     },
     topMetacritic() {
-      if (this.games) {
-        let count = 0;
-        this.games.forEach((element) => {
-          if (element.MCRating >= 75) {
-            count++;
-          }
-        });
-        return count;
-      } else {
-        return 0;
-      }
+      return this.games
+        ? this.games.reduce((sum, game) => {
+            return game.MCRating >= 75 ? ++sum : sum;
+          }, 0)
+        : 0;
     },
     averageMetacriticRating() {
       return this.averageScore("MCRating");
@@ -71,29 +61,24 @@ export default {
       return this.averageScore("topOCAverage");
     },
     totalCoast() {
-      if (this.games) {
-        let price = 0;
-        this.games.forEach((element) => {
-          price += element.originalPrice;
-        });
-        return price.toFixed(2);
-      } else {
-        return 0;
-      }
+      return this.games
+        ? this.games
+            .reduce((sum, game) => {
+              return sum + game.originalPrice;
+            }, 0)
+            .toFixed(2)
+        : 0;
     },
   },
   methods: {
-    averageScore(item) {
+    averageScore(key) {
       if (this.games) {
-        let score = 0;
-        let count = 0;
-        this.games.forEach((element) => {
-          if (element[item]) {
-            score += element[item];
-            count++;
-          }
-        });
-        return Math.round(score / count);
+        const arrObjWithKey = this.games.filter((game) => game[key]);
+        return Math.round(
+          arrObjWithKey.reduce((sum, game) => {
+            return sum + game[key];
+          }, 0) / arrObjWithKey.length
+        );
       } else {
         return 0;
       }
