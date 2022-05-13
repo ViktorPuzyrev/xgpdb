@@ -3,6 +3,7 @@ const state = {
   games: [],
   dbUpdate: "",
 };
+
 const getters = {
   loadingStatus: (state) => {
     return state.loading;
@@ -14,6 +15,7 @@ const getters = {
     return state.games.find((game) => game.id === id);
   },
 };
+
 const mutations = {
   initData(state, payload) {
     state.games = payload.games;
@@ -21,11 +23,16 @@ const mutations = {
     state.dbUpdate = payload.dbUpdate;
   },
 };
+
 const actions = {
   async initData(context) {
-    const response = await fetch("api/xgpdb/");
-    const data = await response.json();
-    context.commit("initData", data);
+    try {
+      const response = await fetch("api/xgpdb/");
+      const data = await response.json();
+      context.commit("initData", data);
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 

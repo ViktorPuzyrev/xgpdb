@@ -2,169 +2,90 @@
 export default {
   computed: {
     genres() {
-      let allGenres = [];
-      for (const item of this.game.genres) {
-        switch (item) {
-          case "shooter":
-            allGenres.push("Шутер");
-            break;
-          case "actionAndAdventure":
-            allGenres.push("Экшн и приключения");
-            break;
-          case "rolePlaying":
-            allGenres.push("Ролевые игры");
-            break;
-          case "racingAndFlying":
-            allGenres.push("Гонки и авиасимуляторы");
-            break;
-          case "strategy":
-            allGenres.push("Стратегии");
-            break;
-          case "classic":
-            allGenres.push("Классика");
-            break;
-          case "sport":
-            allGenres.push("Спорт");
-            break;
-          case "platformer":
-            allGenres.push("Аркады");
-            break;
-          case "puzzleAndTrivia":
-            allGenres.push("Головоломки и викторины");
-            break;
-          case "other":
-            allGenres.push("Другие");
-            break;
-          case "simulation":
-            allGenres.push("Симуляторы");
-            break;
-          case "familyAndKids":
-            allGenres.push("Семья и дети");
-            break;
-          case "fighting":
-            allGenres.push("Борьба");
-            break;
-          case "MOBA":
-            allGenres.push("MOBA");
-            break;
-          case "music":
-            allGenres.push("Музыка");
-            break;
-          default:
-            break;
-        }
-      }
-      return allGenres.join(", ");
+      const genres = {
+        shooter: "Шутер",
+        actionAndAdventure: "Экшн и приключения",
+        rolePlaying: "Ролевые игры",
+        racingAndFlying: "Гонки и авиасимуляторы",
+        strategy: "Гонки и авиасимуляторы",
+        classic: "Классика",
+        sport: "Спорт",
+        platformer: "Аркады",
+        puzzleAndTrivia: "Головоломки и викторины",
+        other: "Другие",
+        simulation: "Симуляторы",
+        familyAndKids: "Семья и дети",
+        fighting: "Семья и дети",
+        MOBA: "MOBA",
+        music: "Музыка",
+      };
+      return this.getAllOptionsToStr(this.game.genres, genres);
     },
     features() {
-      let allFeatures = [];
-      for (const item of this.game.featuresList) {
-        switch (item) {
-          case "singlePlayer":
-            allFeatures.push("Один игрок");
-            break;
-          case "ultraHd":
-            allFeatures.push("4K Ultra HD");
-            break;
-          case "localCoop":
-            allFeatures.push("Локальная кооперативная игра в Xbox");
-            break;
-          case "onlineCoop":
-            allFeatures.push("Совместная игра по сети");
-            break;
-          case "onlineMP":
-            allFeatures.push("Многопользовательская игра по сети");
-            break;
-          case "localMP":
-            allFeatures.push("Локальная многопользовательская игра в Xbox");
-            break;
-          case "opitmizedXSeries":
-            allFeatures.push("Оптимизировано для Xbox Series X|S");
-            break;
-          case "xoxEnhanced":
-            allFeatures.push("Игры для Xbox One X с улучшениями");
-            break;
-          case "fps60":
-            allFeatures.push("60 FPS");
-            break;
-          case "fps120":
-            allFeatures.push("120 FPS");
-            break;
-          default:
-            break;
-        }
-      }
-      if (allFeatures.length > 0) {
-        return allFeatures.join(", ");
-      } else {
-        return "отсутствуют данные";
-      }
+      const features = {
+        singlePlayer: "Один игрок",
+        ultraHd: "4K Ultra HD",
+        localCoop: "Локальная кооперативная игра в Xbox",
+        onlineCoop: "Локальная кооперативная игра в Xbox",
+        onlineMP: "Многопользовательская игра по сети",
+        localMP: "Локальная многопользовательская игра в Xbox",
+        opitmizedXSeries: "Оптимизировано для Xbox Series X|S",
+        xoxEnhanced: "Игры для Xbox One X с улучшениями",
+        fps60: "60 FPS",
+        fps120: "120 FPS",
+      };
+      return this.game.featuresList.length
+        ? this.getAllOptionsToStr(this.game.featuresList, features)
+        : "отсутствуют данные";
     },
     localization() {
-      let allLocalizations = [];
-      for (const item of this.game.ruLocalization) {
-        switch (item) {
-          case "interface":
-            allLocalizations.push("Интерфейс");
-            break;
-          case "subtitles":
-            allLocalizations.push("Субтитры");
-            break;
-          case "audio":
-            allLocalizations.push("Аудио");
-            break;
-          default:
-            break;
-        }
-      }
-      if (allLocalizations.length > 0) {
-        return allLocalizations.join(", ");
-      } else {
-        return "отсутствуют данные";
-      }
+      const localization = {
+        interface: "Интерфейс",
+        subtitles: "Субтитры",
+        audio: "Аудио",
+      };
+      return this.game.ruLocalization.length
+        ? this.getAllOptionsToStr(this.game.ruLocalization, localization)
+        : "отсутствуют данные";
     },
     OCSticker() {
-      switch (this.game.OCRating) {
-        case "Mighty Man":
-          return require("@/assets/mighty-man.png");
-        case "Strong Man":
-          return require("@/assets/strong-man.png");
-        case "Fair Man":
-          return require("@/assets/fair-man.png");
-        case "Weak Man":
-          return require("@/assets/weak-man.png");
-        default:
-          return false;
-      }
+      const stickerPng = {
+        MightyMan: require("@/assets/mighty-man.png"),
+        StrongMan: require("@/assets/strong-man.png"),
+        FairMan: require("@/assets/fair-man.png"),
+        WeakMan: require("@/assets/weak-man.png"),
+      };
+      return this.game.OCRating
+        ? stickerPng[this.game.OCRating.replace(/\s/g, "")]
+        : false;
     },
     achievements() {
-      if (this.game.strategeHard === null || this.game.strategeTime === null) {
-        return "отсутствуют данные";
-      } else {
-        return `сложность ${this.game.strategeHard} из 10, время ${this.game.strategeTime} часов`;
-      }
+      return !this.game.strategeHard || !this.game.strategeTime
+        ? "отсутствуют данные"
+        : `сложность ${this.game.strategeHard} из 10, время ${this.game.strategeTime} часов`;
     },
     HLTB() {
-      let allTime = [];
-      if (this.game.HLTBMainStory) {
-        allTime.push(`сюжет ${this.game.HLTBMainStory} ч.`);
-      }
-      if (this.game.HLTBMainExtras) {
-        allTime.push(`сюжет+экстра ${this.game.HLTBMainExtras} ч.`);
-      }
-      if (this.game.HLTBCompletionist) {
-        allTime.push(`перфекционист ${this.game.HLTBCompletionist} ч.`);
-      }
-      if (this.game.HLTBSinglePlayer) {
-        allTime.push(`соло ${this.game.HLTBSinglePlayer} ч.`);
-      }
-      if (this.game.HLTBCoOp) {
-        allTime.push(`кооп ${this.game.HLTBCoOp} ч.`);
-      }
-      if (this.game.HLTBVs) {
-        allTime.push(`версус ${this.game.HLTBVs} ч.`);
-      }
-      return allTime.join(", ");
+      const HLTB = {
+        HLTBMainStory: `сюжет ${this.game.HLTBMainStory} ч.`,
+        HLTBMainExtras: `сюжет+экстра ${this.game.HLTBMainExtras} ч.`,
+        HLTBCompletionist: `перфекционист ${this.game.HLTBCompletionist} ч.`,
+        HLTBSinglePlayer: `соло ${this.game.HLTBSinglePlayer} ч.`,
+        HLTBCoOp: `кооп ${this.game.HLTBCoOp} ч.`,
+        HLTBVs: `версус ${this.game.HLTBVs} ч.`,
+      };
+      const arrWithOptions = Object.keys(this.game).filter((item) =>
+        Object.keys(HLTB).includes(item)
+      );
+      return arrWithOptions.length
+        ? this.getAllOptionsToStr(arrWithOptions, HLTB)
+        : "отсутствуют данные";
+    },
+  },
+  methods: {
+    getAllOptionsToStr(arr, obj) {
+      return arr.reduce((sum, option) => {
+        return sum.length !== 0 ? `${sum}, ${obj[option]}` : obj[option];
+      }, "");
     },
   },
 };
