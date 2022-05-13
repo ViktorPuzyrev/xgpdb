@@ -1,6 +1,6 @@
 {
   "name": "xgpdb-back",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "XGP library",
   "main": "server.js",
   "scripts": {
