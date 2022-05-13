@@ -107,11 +107,11 @@ export default {
     return {
       sortItems: [
         { text: "Дата", value: "date" },
-        { text: "Название", value: "title" },
+        { text: "Название", value: "ruTitle" },
         { text: "MS рейтинг", value: "MSrating" },
-        { text: "OC рейтинг", value: "OCrating" },
-        { text: "MC(MS) рейтинг", value: "MCMSrating" },
-        { text: "MC(US) рейтинг", value: "MCUSrating" },
+        { text: "OC рейтинг", value: "topOCAverage" },
+        { text: "MC(MS) рейтинг", value: "MCRating" },
+        { text: "MC(US) рейтинг", value: "MCUserScore" },
       ],
       gamesPerPageSelect: [20, 60, 100],
     };

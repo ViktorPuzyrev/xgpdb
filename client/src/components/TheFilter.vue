@@ -3,7 +3,7 @@
     <v-card-title class="text-center py-1">Поиск</v-card-title>
     <v-form v-on:submit.prevent>
       <v-text-field
-        v-model="gameTitle"
+        v-model="query"
         label="Название игры..."
         dense
         solo
@@ -227,12 +227,12 @@ export default {
     };
   },
   computed: {
-    gameTitle: {
+    query: {
       get() {
-        return store.state.filter.gameTitle;
+        return store.state.filter.query;
       },
       set(value) {
-        this.updateGameTitle(value);
+        this.updateQuery(value);
       },
     },
     searchInDescription: {
@@ -270,7 +270,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      "updateGameTitle",
+      "updateQuery",
       "updateSearchInDescription",
       "updateGenres",
       "updateFeatures",
@@ -278,7 +278,7 @@ export default {
     ]),
     clearAll() {
       if (
-        this.gameTitle ||
+        this.query ||
         this.genres.length ||
         this.features.length ||
         this.localization.length
@@ -287,7 +287,7 @@ export default {
           top: 0,
         });
       }
-      this.gameTitle = null;
+      this.query = null;
       this.searchInDescription = this.showGenres = this.showFeatures = false;
       this.genres = this.features = this.localization = [];
     },
