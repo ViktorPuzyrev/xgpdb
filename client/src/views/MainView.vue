@@ -90,6 +90,18 @@
         ></v-pagination>
       </v-col>
     </v-row>
+    <v-btn
+      color="teal"
+      elevation="2"
+      dark
+      fab
+      fixed
+      bottom
+      right
+      v-show="scY > 600"
+      @click="toTop"
+      ><v-icon>mdi-arrow-up-thick</v-icon></v-btn
+    >
   </div>
 </template>
 
@@ -114,6 +126,8 @@ export default {
         { text: "MC(US) рейтинг", value: "MCUserScore" },
       ],
       gamesPerPageSelect: [20, 60, 100],
+      scTimer: 0,
+      scY: 0,
     };
   },
   computed: {
@@ -164,6 +178,9 @@ export default {
       return xl ? 250 : lg ? 240 : md ? 220 : sm ? 240 : 350;
     },
   },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
   methods: {
     ...mapMutations([
       "updateSortingBy",
@@ -171,6 +188,14 @@ export default {
       "updateGamesPerPage",
       "updatePage",
     ]),
+    handleScroll() {
+      if (this.scTimer) return;
+      this.scTimer = setTimeout(() => {
+        this.scY = window.scrollY;
+        clearTimeout(this.scTimer);
+        this.scTimer = 0;
+      }, 100);
+    },
     toTop() {
       window.scrollTo({
         top: 0,

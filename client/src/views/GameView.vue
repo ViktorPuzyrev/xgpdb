@@ -78,9 +78,8 @@
       </v-carousel>
     </v-card>
     <v-btn
-      color="green darken-3"
+      color="teal"
       elevation="2"
-      class="mb-12"
       dark
       fab
       fixed

@@ -12,7 +12,6 @@ const state = {
 
 const getters = {
   filteredGamesList: (state, getters) => {
-    const query = (state.query || "").toLowerCase();
     return JSON.parse(JSON.stringify(getters.allGames))
       .filter((game) => {
         return [
@@ -27,11 +26,12 @@ const getters = {
           ].includes(item)
         );
       })
-      .filter((game) =>
-        state.searchInDescription
+      .filter((game) => {
+        const query = (state.query || "").toLowerCase();
+        return state.searchInDescription
           ? game.description.toLowerCase().includes(query)
-          : game.ruTitle.toLowerCase().includes(query)
-      );
+          : game.ruTitle.toLowerCase().includes(query);
+      });
   },
   sortedGamesList: (state, getters) => {
     state.page = 1;
