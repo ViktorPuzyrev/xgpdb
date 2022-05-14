@@ -175,7 +175,7 @@ export default {
     },
     cardWidth() {
       const { xl, lg, md, sm } = this.$vuetify.breakpoint;
-      return xl ? 250 : lg ? 240 : md ? 220 : sm ? 240 : 350;
+      return xl ? 250 : lg ? 230 : md ? 220 : sm ? 240 : 350;
     },
   },
   mounted() {
