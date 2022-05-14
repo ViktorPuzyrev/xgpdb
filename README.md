@@ -9,6 +9,7 @@
 - База Mongo
 - Фронт на Vue 2 (vue-router, vuex) с Vuetify
 - Адаптивная верстка
+- GitHub Action для деплоя на Heroku
 
 ---
 
