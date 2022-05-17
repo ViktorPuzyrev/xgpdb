@@ -2,7 +2,7 @@
 node_modules
 docs
 /dist
-
+/client/README.md
 
 # local env files
 .env
