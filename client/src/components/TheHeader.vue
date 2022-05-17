@@ -22,6 +22,11 @@
 <script>
 import TheFilter from "./TheFilter";
 
+/**
+ * Компенент хедера.
+ * @vue-data {(Boolean|Null)} [drawer=null] - Активирует боковое меню. Значение null задает специфическое поведение для компьютера/телефона
+ */
+
 export default {
   name: "TheHeader",
   components: {

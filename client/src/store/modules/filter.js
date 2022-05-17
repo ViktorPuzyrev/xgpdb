@@ -1,3 +1,22 @@
+/**
+ * @module Store/Filter
+ * @description Модуль менеджера состояния отвечающий за фильтрацию.
+ */
+
+/**
+ * Параметры фильтрации
+ * @typedef state
+ * @type {Object}
+ * @property {String} [query=""] - Поисковый запрос
+ * @property {Boolean} [searchInDescription=false] - Поиск в описании
+ * @property {Array.<String>} [genres=[]] - Жанры по которым идет поиск
+ * @property {Array.<String>} [features=[]] - Функции по которым идет поиск
+ * @property {Array.<String>} [localization=[]] - Параметры локализации по которым идет поиск
+ * @property {String} [sortingBy="date"] - Параметр сортировки списка игр
+ * @property {Boolean} [reverseSort=false] - Обратная сортировка списка игр
+ * @property {Number} [gamesPerPage=20] - Количество игр на странице
+ * @property {Number} [page=1] - Текущая страница списка игр
+ */
 const state = {
   query: "",
   searchInDescription: false,
@@ -11,6 +30,13 @@ const state = {
 };
 
 const getters = {
+  /**
+   * Фильтрует список игр по жанру, функции, параметру локализации, поисковому запросу.
+   * @method filteredGamesList
+   * @param {Object} state
+   * @param {Object} getters
+   * @returns {Array.<Object>}
+   */
   filteredGamesList: (state, getters) => {
     return JSON.parse(JSON.stringify(getters.allGames))
       .filter((game) => {
@@ -33,6 +59,13 @@ const getters = {
           : game.ruTitle.toLowerCase().includes(query);
       });
   },
+  /**
+   * Сортирует список игр по различным параметрам.
+   * @method sortedGamesList
+   * @param {Object} state
+   * @param {Object} getters
+   * @returns {Array.<Object>}
+   */
   sortedGamesList: (state, getters) => {
     state.page = 1;
     if (state.sortingBy === "date") {
@@ -52,12 +85,26 @@ const getters = {
       );
     }
   },
+  /**
+   * Обращает порядок игр в списке.
+   * @method reversedGamesList
+   * @param {Object} state
+   * @param {Object} getters
+   * @returns {Array.<Object>}
+   */
   reversedGamesList: (state, getters) => {
     return state.reverseSort
       ? JSON.parse(JSON.stringify(getters.sortedGamesList)).reverse()
       : getters.sortedGamesList;
   },
-  paginatedGames: (state, getters) => {
+  /**
+   * Разбивает список игр для постраничного отображения.
+   * @method paginatedGamesList
+   * @param {Object} state
+   * @param {Object} getters
+   * @returns {Array.<Array>}
+   */
+  paginatedGamesList: (state, getters) => {
     function chunk(arr, size) {
       return arr.reduce(
         (acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]),
@@ -66,9 +113,21 @@ const getters = {
     }
     return chunk(getters.reversedGamesList, state.gamesPerPage);
   },
+  /**
+   * Считает количество страниц в списке игр.
+   * @method pages
+   * @param {Object} getters
+   * @returns {Number}
+   */
   pages: (state, getters) => {
-    return getters.paginatedGames.length;
+    return getters.paginatedGamesList.length;
   },
+  /**
+   * Считает количество игр в списке игр.
+   * @method counterOfGames
+   * @param {Object} getters
+   * @returns {Number}
+   */
   counterOfGames: (state, getters) => {
     return getters.sortedGamesList.length;
   },

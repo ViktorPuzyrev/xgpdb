@@ -96,6 +96,13 @@ import store from "../store";
 import gameDataHandler from "../mixins/gameDataHandler.vue";
 import StickersPanel from "../components/StickersPanel.vue";
 
+/**
+ * @module Views/Game
+ * @description Страница игры. Подключен миксин [gameDataHandler]{@link module:gameDataHandler}.
+ * @vue-computed {Number} gameId - Id игры полученное из параметров адресной строки
+ * @vue-computed {Object} game - Данные игры
+ */
+
 export default {
   name: "GameView",
   components: { StickersPanel },
@@ -114,6 +121,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * Меняет имя страницы
+     */
     pageTitle() {
       if (this.game) {
         document.title = this.game.ruTitle + " - XGPdb";

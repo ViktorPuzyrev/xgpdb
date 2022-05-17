@@ -13,6 +13,7 @@ module.exports = {
     ],
     includePattern: "\\.(vue|js)$",
   },
+  templates: { cleverLinks: true, monospaceLinks: true },
   opts: {
     encoding: "utf8",
   },

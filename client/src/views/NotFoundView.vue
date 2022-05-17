@@ -8,6 +8,11 @@
 </template>
 
 <script>
+/**
+ * @module Views/NotFound
+ * @description Страница не найдена.
+ */
+
 export default {
   name: "NotFound",
 };

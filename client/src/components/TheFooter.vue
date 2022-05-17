@@ -8,6 +8,12 @@
 
 <script>
 import store from "../store";
+
+/**
+ * Компонент футера.
+ * @vue-computed {String} dbUpdate - Дата последнего обновления базы данных
+ */
+
 export default {
   name: "TheFooter",
   computed: {

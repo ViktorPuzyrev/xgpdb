@@ -30,6 +30,11 @@
 </template>
 
 <script>
+/**
+ * Компонент карточки игры на главной странице отображемый во время загрузки данных из API.
+ * @vue-prop {Number} cardWidth - Ширина карточки с игрой
+ */
+
 export default {
   name: "LoadingGameCard",
   props: { cardWidth: { type: Number, required: true } },

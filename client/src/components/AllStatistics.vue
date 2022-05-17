@@ -31,7 +31,16 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-
+/**
+ * Компонент статистики.
+ * @vue-data {Boolean} [dialog=false] - Активирует диалоговое окно
+ * @vue-computed {Number} totalGames - Общее количество игр в подписке
+ * @vue-computed {Number} topMetacritic - Игры с MC выше 75 баллов
+ * @vue-computed {Number} averageMetacriticRating - Средний балл MC всех игр
+ * @vue-computed {String} averageMetacriticUSRating - Средний балл MC(US) всех игр
+ * @vue-computed {Number} averageOpencriticRating - Средний балл OC всех игр
+ * @vue-computed {String} totalCoast - Стоимость всех игр в подписке без скидок
+ */
 export default {
   name: "AllStatistics",
   data() {
@@ -71,6 +80,11 @@ export default {
     },
   },
   methods: {
+    /**
+     * Считает средний балл рейтинга игр, у которых он есть
+     * @param {String} key - Ключ рейтинга в объекте игры
+     * @returns {number} Средний рейтинг
+     */
     averageScore(key) {
       if (this.games) {
         const arrObjWithKey = this.games.filter((game) => game[key]);

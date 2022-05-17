@@ -20,7 +20,7 @@ const routes = [
     path: "*",
     name: "NotFound",
     component: () =>
-      import(/* webpackChunkName: "NotFound" */ "../views/NotFound"),
+      import(/* webpackChunkName: "NotFound" */ "../views/NotFoundView"),
     meta: { title: "Страница не найдена - XGPdb" },
   },
 ];

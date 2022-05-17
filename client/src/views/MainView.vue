@@ -72,7 +72,7 @@
           <div v-else>
             <div class="d-flex flex-wrap justify-space-around">
               <GameCard
-                v-for="game in paginatedGames[page - 1]"
+                v-for="game in paginatedGamesList[page - 1]"
                 :key="game.id"
                 :game="game"
                 :cardWidth="cardWidth"
@@ -112,6 +112,25 @@ import { mapMutations } from "vuex";
 import GameCard from "../components/GameCard";
 import LoadingGameCard from "../components/LoadingGameCard";
 
+/**
+ * @module Views/Main
+ * @description Главная страница.
+ * @vue-data {Array.<Object>} sortItems - Параметры сортировки списка игр
+ * @vue-data {Array.<Number>} [gamesPerPageSelect=[20, 60, 100]] - Количество игр на странице
+ * @vue-data {Number} [scTimer=0] - Таймер прокрутки
+ * @vue-data {Number} [scY=0] - Позиция прокрутки по оси Y
+ * @vue-computed {Number} counterOfGames - Количество игр в списке игр
+ * @vue-computed {Array.<Array>} paginatedGamesList - Список игр для постраничного отображения
+ * @vue-computed {Number} pages - Количество страниц в списке игр
+ * @vue-computed {Boolean} loadingStatus - Статус загрузки списка игр
+ * @vue-computed {Array.<Object>} games - Список игр
+ * @vue-computed {String} sortingBy - Параметр сортировки списка игр
+ * @vue-computed {Boolean} reverseSort - Обратная сортировка списка игр
+ * @vue-computed {Number} gamesPerPage - Количество игр на странице
+ * @vue-computed {Number} page - Текущая страница списка игр
+ * @vue-computed {Number} cardWidth - Ширина карточки с игрой
+ */
+
 export default {
   name: "MainView",
   components: { GameCard, LoadingGameCard },
@@ -133,7 +152,7 @@ export default {
   computed: {
     ...mapGetters([
       "counterOfGames",
-      "paginatedGames",
+      "paginatedGamesList",
       "pages",
       "loadingStatus",
     ]),
@@ -188,6 +207,9 @@ export default {
       "updateGamesPerPage",
       "updatePage",
     ]),
+    /**
+     * Отслежавает положение прокрутки страницы
+     */
     handleScroll() {
       if (this.scTimer) return;
       this.scTimer = setTimeout(() => {
@@ -196,6 +218,9 @@ export default {
         this.scTimer = 0;
       }, 100);
     },
+    /**
+     * Прокручивает страницу наверх
+     */
     toTop() {
       window.scrollTo({
         top: 0,

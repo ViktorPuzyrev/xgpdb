@@ -1,10 +1,9 @@
 <template>
   <div class="pa-2">
-    <v-card-title class="text-center py-1">Поиск</v-card-title>
     <v-form v-on:submit.prevent>
       <v-text-field
         v-model="query"
-        label="Название игры..."
+        label="Поиск"
         dense
         solo
         clearable
@@ -179,6 +178,22 @@ import store from "../store";
 import { mapMutations } from "vuex";
 import AllStatistics from "./AllStatistics.vue";
 
+/**
+ * Компонент бокового меню задающий параметры поиска и фильтрации.
+ * @vue-data {Boolean} [showGenres=false] - Открывает/закрывает полный список жанров
+ * @vue-data {Object} mainGenres - Список основных жанров
+ * @vue-data {Object} secondaryGenres - Список второстепенных жанров
+ * @vue-data {Boolean} [showFeatures=false] - Открывает/закрывает полный список функций
+ * @vue-data {Object} mainFeatures - Список основных функций
+ * @vue-data {Object} secondaryFeatures - Список второстепенных функций
+ * @vue-data {Object} ruLocalization - Список параметров локализации
+ * @vue-computed {String} query - Поисковый запрос
+ * @vue-computed {Boolean} searchInDescription - Поиск в описании
+ * @vue-computed {Array.<String>} genres - Жанры по которым идет поиск
+ * @vue-computed {Array.<String>} features - Функции по которым идет поиск
+ * @vue-computed {Array.<String>} localization - Параметры локализации по которым идет поиск
+ */
+
 export default {
   name: "TheFilter",
   components: { AllStatistics },
@@ -276,6 +291,9 @@ export default {
       "updateFeatures",
       "updateLocalization",
     ]),
+    /**
+     * Очищает параметры поиска и фильтрации, скролит страницу наверх
+     */
     clearAll() {
       if (
         this.query ||

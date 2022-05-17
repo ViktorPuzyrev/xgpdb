@@ -13,6 +13,10 @@ import store from "./store/";
 import TheHeader from "./components/TheHeader";
 import TheFooter from "./components/TheFooter";
 
+/**
+ * Корневой компонент.
+ */
+
 export default {
   name: "App",
   watch: {
@@ -28,6 +32,9 @@ export default {
     TheFooter,
   },
   methods: {
+    /**
+     * Вызывает действие загрузки данных в менеджер состояния
+     */
     async initData() {
       store.dispatch("initData");
     },

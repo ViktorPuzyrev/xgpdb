@@ -120,6 +120,16 @@
 <script>
 import gameDataHandler from "../mixins/gameDataHandler.vue";
 
+/**
+ * Компонент для отображения рейтингов на постере карточки игры. Подключен миксин [gameDataHandler]{@link module:gameDataHandler}.
+ * @vue-prop {Object} game - Данные о игре
+ * @vue-prop {Number} width - Ширина карточки с игрой
+ * @vue-prop {Boolean} moreInfo - Активирует ховер на постере
+ * @vue-computed {Object} cell - Общие параметры CSS для ячейки с рейтингом
+ * @vue-computed {Object} styleMCRating - Параметры CSS для ячейки с рейтингом MC
+ * @vue-computed {Object} styleMCUserScore - Параметры CSS для ячейки с рейтингом MC(US)
+ */
+
 export default {
   name: "StickersPanel",
   mixins: [gameDataHandler],
@@ -152,12 +162,21 @@ export default {
     },
   },
   methods: {
-    metacriticStyle(key, radius, a, b, c) {
+    /**
+     * Формирует CSS стили для рейтинга MC/MC(US)
+     * @param {Number} raiting - Рейтинг MC/MC(US)
+     * @param {String} radius - Радиус скругления элемента
+     * @param {Number} a - Верхний(зеленый) диапазон рейтинга
+     * @param {Number} b - Средний(желтый) диапазон рейтинга
+     * @param {Number} c - Нижний(красный) диапазон рейтинга
+     * @returns {Object}
+     */
+    metacriticStyle(raiting, radius, a, b, c) {
       return {
         width: (this.width / 5) * 0.9 + "px",
         height: (this.width / 5) * 0.9 + "px",
         backgroundColor:
-          key >= a ? "#6c3" : c > key && key <= b ? "#f00" : "#fc3",
+          raiting >= a ? "#6c3" : c > raiting && raiting <= b ? "#f00" : "#fc3",
         borderRadius: radius,
         display: "flex",
         alignItems: "center",

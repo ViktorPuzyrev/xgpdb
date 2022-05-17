@@ -1,4 +1,14 @@
 <script>
+/**
+ * Миксин для формирования данных о игре для других компонентов.
+ * @vue-computed {String} genres - Жанры игры
+ * @vue-computed {String} features - Функции игры
+ * @vue-computed {String} localization - Локализация игры
+ * @vue-computed {String} OCSticker - URL иконки рейтинга OC
+ * @vue-computed {String} achievements - Данные о ачивментах игры
+ * @vue-computed {String} HLTB - Данные о времени прохождения игры
+ */
+
 export default {
   computed: {
     genres() {
@@ -82,6 +92,12 @@ export default {
     },
   },
   methods: {
+    /**
+     * Заменяет элементы массива на значения ключей объекта и объединяет в строку
+     * @param {Array} arr
+     * @param {Object} obj
+     * @returns {String}
+     */
     getAllOptionsToStr(arr, obj) {
       return arr.reduce((sum, option) => {
         return sum.length !== 0 ? `${sum}, ${obj[option]}` : obj[option];

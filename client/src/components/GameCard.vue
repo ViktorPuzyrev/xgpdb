@@ -30,6 +30,12 @@
 import StickersPanel from "./StickersPanel.vue";
 import gameDataHandler from "../mixins/gameDataHandler.vue";
 
+/**
+ * Компонент карточки игры на главной странице. Подключен миксин [gameDataHandler]{@link module:gameDataHandler}.
+ * @vue-prop {Object} game - Данные о игре
+ * @vue-prop {Number} cardWidth - Ширина карточки с игрой
+ */
+
 export default {
   name: "GameCard",
   components: { StickersPanel },
