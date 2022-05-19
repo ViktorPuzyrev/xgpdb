@@ -11,7 +11,7 @@
           Общая статистика Xbox Game Pass
         </v-card-title>
         <v-card-text class="text-h6 pt-5"
-          >Колличество игр в подписке: {{ totalGames }}<br />
+          >Количество игр в подписке: {{ totalGames }}<br />
           Средний балл Metacritic (MS): {{ averageMetacriticRating }}<br />
           Средний балл Metacritic (US): {{ averageMetacriticUSRating }}<br />
           Игры с Metacritic (MS) выше 75: {{ topMetacritic }}<br />
