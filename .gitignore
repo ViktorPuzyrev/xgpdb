@@ -3,6 +3,7 @@ node_modules
 docs
 /dist
 /client/README.md
+/client/tests/unit/__snapshots__
 
 # local env files
 .env
