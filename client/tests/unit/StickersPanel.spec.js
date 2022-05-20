@@ -6,38 +6,39 @@ import Vuetify from "vuetify";
 describe("StickersPanel.vue", () => {
   const localVue = createLocalVue();
   let vuetify;
-
-  const game = games[0];
-  const width = 300;
+  let game;
+  let width;
 
   beforeEach(() => {
     vuetify = new Vuetify();
+    game = games[0];
+    width = 300;
   });
 
-  it("Show ratings", () => {
+  it("shows ratings", () => {
     const wrapper = mount(StickersPanel, {
       localVue,
       vuetify,
       propsData: { game, width },
     });
     const ratings = wrapper.findAll(".white--text.ma-0");
-    expect(ratings.at(0).text()).toMatch("4.9");
-    expect(ratings.at(1).text()).toMatch("92");
-    expect(ratings.at(2).text()).toMatch("8.3");
+    expect(ratings.at(0).text()).toBe("4.9");
+    expect(ratings.at(1).text()).toBe("92");
+    expect(ratings.at(2).text()).toBe("8.3");
   });
 
-  it("Show stickers", () => {
+  it("shows stickers", () => {
     const wrapper = mount(StickersPanel, {
       localVue,
       vuetify,
       propsData: { game, width },
     });
-    expect(wrapper.vm.OCSticker).toMatch("mighty-man.png");
+    expect(wrapper.vm.OCSticker).toBe("mighty-man.png");
     expect(wrapper.findAll(".v-image__image--contain").at(1).exists()).toBe(
       true
     );
   });
-  it("Match snapshot", () => {
+  it("matches the snapshot", () => {
     const wrapper = mount(StickersPanel, {
       localVue,
       vuetify,

@@ -22,27 +22,27 @@ describe("AllStatistics.vue", () => {
     vuetify = new Vuetify();
   });
 
-  it("Show number of games in the subscription", () => {
+  it("shows number of games in the subscription", () => {
     const wrapper = shallowMount(AllStatistics, { store, localVue, vuetify });
     expect(wrapper.text()).toContain("4");
   });
-  it("Show average Metacritic score (MS)", () => {
+  it("shows average Metacritic score (MS)", () => {
     const wrapper = shallowMount(AllStatistics, { store, localVue, vuetify });
     expect(wrapper.text()).toContain("77");
   });
-  it("Show average Metacritic score (US)", () => {
+  it("shows average Metacritic score (US)", () => {
     const wrapper = shallowMount(AllStatistics, { store, localVue, vuetify });
     expect(wrapper.text()).toContain("6.0");
   });
-  it("Show games with Metacritic (MS) above 75", () => {
+  it("shows games with Metacritic (MS) above 75", () => {
     const wrapper = shallowMount(AllStatistics, { store, localVue, vuetify });
     expect(wrapper.text()).toContain("3");
   });
-  it("Show the cost of all games (without discounts)", () => {
+  it("shows the cost of all games (without discounts)", () => {
     const wrapper = shallowMount(AllStatistics, { store, localVue, vuetify });
     expect(wrapper.text()).toContain("149.95");
   });
-  it("Match snapshot", () => {
+  it("matches the snapshot", () => {
     const wrapper = shallowMount(AllStatistics, { store, localVue, vuetify });
     expect(wrapper.html()).toMatchSnapshot();
   });

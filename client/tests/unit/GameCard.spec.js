@@ -6,15 +6,16 @@ import Vuetify from "vuetify";
 describe("GameCard.vue", () => {
   const localVue = createLocalVue();
   let vuetify;
-
-  const game = games[0];
-  const cardWidth = 300;
+  let game;
+  let cardWidth;
 
   beforeEach(() => {
     vuetify = new Vuetify();
+    game = games[0];
+    cardWidth = 300;
   });
 
-  it("Has correct size", () => {
+  it("has the right size", () => {
     const wrapper = mount(GameCard, {
       localVue,
       vuetify,
@@ -24,35 +25,35 @@ describe("GameCard.vue", () => {
     expect(divs.at(0).attributes("style")).toMatch("height: 390px");
     expect(divs.at(1).attributes("style")).toContain("height: 60px");
   });
-  it("Show game title", () => {
+  it("shows game title", () => {
     const wrapper = mount(GameCard, {
       localVue,
       vuetify,
       propsData: { game, cardWidth },
     });
-    expect(wrapper.find(".v-card__title").text()).toMatch(
+    expect(wrapper.find(".v-card__title").text()).toBe(
       "Forza Horizon 4: стандартное издание"
     );
   });
-  it("Show game genres", () => {
+  it("shows game genres", () => {
     const wrapper = mount(GameCard, {
       localVue,
       vuetify,
       propsData: { game, cardWidth },
     });
-    expect(wrapper.find(".v-card__subtitle").text()).toMatch(
+    expect(wrapper.find(".v-card__subtitle").text()).toBe(
       "Гонки и авиасимуляторы"
     );
   });
-  it("Has correct Microsoft Store link", () => {
+  it("has the right Microsoft Store link", () => {
     const wrapper = mount(GameCard, {
       localVue,
       vuetify,
       propsData: { game, cardWidth },
     });
-    expect(wrapper.find("a").attributes("href")).toMatch(games[0].link);
+    expect(wrapper.find("a").attributes("href")).toBe(games[0].link);
   });
-  it("Match snapshot", () => {
+  it("matches the snapshot", () => {
     const wrapper = mount(GameCard, {
       localVue,
       vuetify,

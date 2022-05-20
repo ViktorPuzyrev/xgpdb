@@ -5,14 +5,14 @@ import Vuetify from "vuetify";
 describe("LoadingGameCard.vue", () => {
   const localVue = createLocalVue();
   let vuetify;
-
-  const cardWidth = 300;
+  let cardWidth;
 
   beforeEach(() => {
     vuetify = new Vuetify();
+    cardWidth = 300;
   });
 
-  it("Has correct size", () => {
+  it("has the right size", () => {
     const wrapper = mount(LoadingGameCard, {
       localVue,
       vuetify,
@@ -22,7 +22,7 @@ describe("LoadingGameCard.vue", () => {
     expect(style).toContain("height: 594px");
     expect(style).toContain("width: 300px");
   });
-  it("Match snapshot", () => {
+  it("matches the snapshot", () => {
     const wrapper = mount(LoadingGameCard, {
       localVue,
       vuetify,
