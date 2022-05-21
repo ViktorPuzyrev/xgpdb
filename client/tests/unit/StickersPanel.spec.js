@@ -8,19 +8,21 @@ describe("StickersPanel.vue", () => {
   let vuetify;
   let game;
   let width;
+  let options;
 
   beforeEach(() => {
     vuetify = new Vuetify();
     game = games[0];
     width = 300;
-  });
-
-  it("shows ratings", () => {
-    const wrapper = mount(StickersPanel, {
+    options = {
       localVue,
       vuetify,
       propsData: { game, width },
-    });
+    };
+  });
+
+  it("shows ratings", () => {
+    const wrapper = mount(StickersPanel, { ...options });
     const ratings = wrapper.findAll(".white--text.ma-0");
     expect(ratings.at(0).text()).toBe("4.9");
     expect(ratings.at(1).text()).toBe("92");
@@ -28,22 +30,15 @@ describe("StickersPanel.vue", () => {
   });
 
   it("shows stickers", () => {
-    const wrapper = mount(StickersPanel, {
-      localVue,
-      vuetify,
-      propsData: { game, width },
-    });
+    const wrapper = mount(StickersPanel, { ...options });
     expect(wrapper.vm.OCSticker).toBe("mighty-man.png");
     expect(wrapper.findAll(".v-image__image--contain").at(1).exists()).toBe(
       true
     );
   });
+
   it("matches the snapshot", () => {
-    const wrapper = mount(StickersPanel, {
-      localVue,
-      vuetify,
-      propsData: { game, width },
-    });
+    const wrapper = mount(StickersPanel, { ...options });
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
