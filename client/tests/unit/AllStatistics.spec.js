@@ -17,37 +17,39 @@ describe("AllStatistics.vue", () => {
     getters = {
       allGames: () => games,
     };
-    store = new Vuex.Store({
-      getters,
-    });
+    store = new Vuex.Store({ getters });
     vuetify = new Vuetify();
-    options = { store, localVue, vuetify };
+    options = { localVue, store, vuetify };
   });
 
-  it("shows number of games in the subscription", () => {
-    const wrapper = shallowMount(AllStatistics, { ...options });
-    expect(wrapper.text()).toContain("4");
-  });
-
-  it("shows average Metacritic score (MS)", () => {
-    const wrapper = shallowMount(AllStatistics, { ...options });
-    expect(wrapper.text()).toContain("77");
-  });
-
-  it("shows average Metacritic score (US)", () => {
-    const wrapper = shallowMount(AllStatistics, { ...options });
-    expect(wrapper.text()).toContain("6.0");
-  });
-
-  it("shows games with Metacritic (MS) above 75", () => {
-    const wrapper = shallowMount(AllStatistics, { ...options });
-    expect(wrapper.text()).toContain("3");
-  });
-
-  it("shows the cost of all games (without discounts)", () => {
-    const wrapper = shallowMount(AllStatistics, { ...options });
-    expect(wrapper.text()).toContain("149.95");
-  });
+  const testsForStatistics = [
+    {
+      label: "shows number of games in the subscription",
+      result: "4",
+    },
+    {
+      label: "shows average Metacritic score (MS)",
+      result: "77",
+    },
+    {
+      label: "shows average Metacritic score (US)",
+      result: "6.0",
+    },
+    {
+      label: "shows games with Metacritic (MS) above 75",
+      result: "3",
+    },
+    {
+      label: "shows the cost of all games (without discounts)",
+      result: "149.95",
+    },
+  ];
+  for (const test of testsForStatistics) {
+    it(test.label, () => {
+      const wrapper = shallowMount(AllStatistics, { ...options });
+      expect(wrapper.text()).toContain(test.result);
+    });
+  }
 
   it("matches the snapshot", () => {
     const wrapper = shallowMount(AllStatistics, { ...options });

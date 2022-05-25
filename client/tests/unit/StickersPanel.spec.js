@@ -14,11 +14,7 @@ describe("StickersPanel.vue", () => {
     vuetify = new Vuetify();
     game = games[0];
     width = 300;
-    options = {
-      localVue,
-      vuetify,
-      propsData: { game, width },
-    };
+    options = { localVue, vuetify, propsData: { game, width } };
   });
 
   it("shows ratings", () => {
