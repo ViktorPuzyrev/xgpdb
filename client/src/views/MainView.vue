@@ -156,9 +156,6 @@ export default {
       "pages",
       "loadingStatus",
     ]),
-    games() {
-      return store.state.games.games;
-    },
     sortingBy: {
       get() {
         return store.state.filter.sortingBy;
