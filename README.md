@@ -10,8 +10,7 @@
 - Фронт на Vue 2 (vue-router, vuex) с Vuetify
 - Адаптивная верстка
 - GitHub Action для деплоя на Heroku
-- [Документация с помощью jsdoc](https://xgpdb-docs.herokuapp.com/)
-
+- [Документация (jsdoc, jsdoc-vuejs)](https://xgpdb-docs.herokuapp.com/)
+- Модульные тесты (Jest, Vue Test Utils)
 ---
-
 К сожалению, полностью автоматизировать парсинг в данный момент для меня не представляется возможным, поэтому обновление БД будет не частым.
